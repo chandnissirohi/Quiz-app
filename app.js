@@ -19,6 +19,21 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+// Webpack config
+if (process.env.NODE_ENV === "development") {
+  const webpack = require("webpack");
+  const webpackConfig = require("./webpack.config");
+  const compiler = webpack(webpackConfig);
+
+  app.use(
+    require("webpack-dev-middleware")(compiler, {
+      noInfo: true,
+      publicPath: webpackConfig.output.publicPath
+    })
+  );
+  app.use(require("webpack-hot-middleware")(compiler));
+}
+
 //connecting to mongoose
 mongoose.connect(
   "mongodb://localhost/Quizapp",
