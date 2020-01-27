@@ -1,1 +1,3 @@
 node_modules
+utils/seed.js
+client/node_modules

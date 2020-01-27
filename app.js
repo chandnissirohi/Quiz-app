@@ -25,8 +25,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 mongoose.connect(
     "mongodb://localhost/Quizapp",
     { useNewUrlParser: true, useUnifiedTopology: true },
-    err => {
-      console.log("connected ", err ? err : true);
+    function(err) {
+      if(err) {
+        console.log(err, 'Not Connect To DB');
+      } else {
+        console.log('Connected Successfully To DB')
+        require('./utils/seed')
+      }
     }
   );
 
