@@ -1,6 +1,6 @@
 import React from "react";
 
-class Login extends React.Component {
+class UserSignup extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -18,25 +18,30 @@ class Login extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    const username = this.state.username;
     const email = this.state.email;
     const password = this.state.password;
-
-    const userData = { username, email, password };
-
-    fetch("/api/v1/users/login", {
+    const username = this.state.username;
+    const userData = {
+      email,
+      password,
+      username
+    };
+    // console.log(email, password, username);
+    fetch("/api/v1/users/signup", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(userData)
+      body: JSON.stringify(userData),
+      headers: {
+        "Content-Type": "application/json"
+      }
     })
       .then(res => res.json())
-      .then(user => console.log(user, "User has logged in"));
+      .then(user => console.log(user, "user created"));
   };
 
   render() {
     return (
       <div>
-        <h1>Login</h1>
+        <h1>Signup</h1>
         <label>Username :</label>
         <input
           type="text"
@@ -62,11 +67,11 @@ class Login extends React.Component {
         />
         <br />
         <button onClick={this.handleSubmit} className="login">
-          Login
+          Signup
         </button>
       </div>
     );
   }
 }
 
-export default Login;
+export default UserSignup;
