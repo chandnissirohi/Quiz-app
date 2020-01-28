@@ -1,5 +1,4 @@
 import React from "react";
-import ReactDom from "react-dom";
 import {
   withRouter,
   Route,
@@ -13,17 +12,21 @@ import UserLogin from "./auth/UserLogin";
 import UserSignup from "./auth/UserSignup";
 import AdminLogin from "./auth/AdminLogin";
 
-function App() {
-  return (
-    // <div className="App">
-    <>
-      <Switch>
-        <Route exact path="/admins/login" component={AdminLogin} />
-        <Route exact path="/user/signup" component={UserSignup} />
-        <Route exact path="/user/login" component={UserLogin} />
-      </Switch>
-    </>
-  );
+class App extends React.Component {
+  render() {
+    return (
+      // <div className="App">
+
+      <>
+        {/* <AdminLogin /> */}
+        <Switch>
+          <Route exact path="/admins/login" component={AdminLogin} />
+          <Route exact path="/user/signup" component={UserSignup} />
+          <Route exact path="/user/login" component={UserLogin} />
+        </Switch>
+      </>
+    );
+  }
 }
 
 export default App;

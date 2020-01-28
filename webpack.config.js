@@ -21,7 +21,7 @@ module.exports = {
           {
             loader: "css-loader"
           }
-        //   { loader: "sass-loader" }
+          //   { loader: "sass-loader" }
         ]
       },
       {
@@ -42,6 +42,9 @@ module.exports = {
     filename: "bundle.js",
     path: __dirname + "/dist/bundle/",
     publicPath: "/static/"
+  },
+  devServer: {
+    historyApiFallback: true
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
