@@ -11,6 +11,7 @@ import Quiz from "./Quiz";
 import UserLogin from "./auth/UserLogin";
 import UserSignup from "./auth/UserSignup";
 import AdminLogin from "./auth/AdminLogin";
+import CreateQuiz from "./CreateQuiz"
 
 class App extends React.Component {
   render() {
@@ -21,6 +22,7 @@ class App extends React.Component {
           <Route exact path="/user/signup" component={UserSignup} />
           <Route exact path="/user/login" component={UserLogin} />
           <Route exact path="/quiz" component={Quiz} />
+          <Route exact path="/admin/quiz/createquiz" component={CreateQuiz} />
         </Switch>
       </div>
     );

@@ -56,8 +56,8 @@ mongoose.connect(
 // Routes
 app.use("/api/v1/users", usersRouter);
 app.use("/api/v1/admins", adminsRouter);
-app.use("/api/v1/question", questionRouter);
-app.use("/api/v1/quiz", quizRouter);
+app.use("/api/v1/admin/question", questionRouter);
+app.use("/api/v1/admin/quiz", quizRouter);
 app.use("/api/v1/user", userRouter);
 app.use("/", indexRouter);
 
