@@ -6,7 +6,8 @@ const quizSchema = new Schema(
   {
     quizTitle: {
       type: String,
-      required: true
+      required: true,
+      unique: true
     },
     questionSet: [
       {
@@ -15,8 +16,8 @@ const quizSchema = new Schema(
       }
     ],
     totalScore: {
-      type: Number,
-      required: true
+      type: Number
+      // required: true
     }
 
     // userId: [

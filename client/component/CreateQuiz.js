@@ -50,13 +50,6 @@ class CreateQuiz extends React.Component {
     return (
       <div>
         <h1>Create Quiz</h1>
-        {/* <label>Quiz Title :</label>
-        <input
-          type="text"
-          name="quizTitle"
-          placeholder="Please enter the title of your quiz"
-          onChange={this.handleChange}
-        /> */}
         <br />
         <label>Question 1 :</label>
         <input
