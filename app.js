@@ -8,7 +8,8 @@ var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/api/users");
 var userRouter = require("./routes/api/user.js");
 var adminsRouter = require("./routes/api/admins");
-var quizzesRouter = require("./routes/api/quizzes");
+var questionRouter = require("./routes/api/question");
+var quizRouter = require("./routes/api/quiz");
 
 var app = express();
 
@@ -55,7 +56,8 @@ mongoose.connect(
 // Routes
 app.use("/api/v1/users", usersRouter);
 app.use("/api/v1/admins", adminsRouter);
-app.use("/api/v1/quizzes", quizzesRouter);
+app.use("/api/v1/question", questionRouter);
+app.use("/api/v1/quiz", quizRouter);
 app.use("/api/v1/user", userRouter);
 app.use("/", indexRouter);
 
