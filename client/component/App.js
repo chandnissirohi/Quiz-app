@@ -31,6 +31,7 @@ class App extends React.Component {
             component={AdminLoggedIn}
           />
           <Route exact path="/admin/quiz/allquizzes" component={Allquizzes} />
+          <Route path="/" component={UserLogin} />
         </Switch>
       </div>
     );
