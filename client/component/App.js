@@ -13,6 +13,7 @@ import UserSignup from "./auth/UserSignup";
 import AdminLogin from "./auth/AdminLogin";
 import CreateQuiz from "./CreateQuiz";
 import AdminLoggedIn from "./AdminLoggedIn";
+import Allquizzes from "./Allquizzes";
 
 class App extends React.Component {
   render() {
@@ -29,6 +30,7 @@ class App extends React.Component {
             path="/admin/loggedin/create"
             component={AdminLoggedIn}
           />
+          <Route exact path="/admin/quiz/allquizzes" component={Allquizzes} />
         </Switch>
       </div>
     );
