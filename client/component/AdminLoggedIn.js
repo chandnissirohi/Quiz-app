@@ -1,4 +1,5 @@
 import React from "react";
+import AdminHeader from "./AdminHeader.js";
 
 class AdminLoggedIn extends React.Component {
   constructor() {
@@ -30,22 +31,28 @@ class AdminLoggedIn extends React.Component {
 
   render() {
     return (
-      <div>
-        <h1>Welcome Chandni</h1>
-        <br />
-        <label>Quiz Title :</label>
-        <input
-          type="text"
-          name="quizTitle"
-          placeholder="Please enter the title"
-          onChange={this.handleChange}
-        />
-        <br />
-        <button className="create-quiz" onClick={this.handleSubmit}>
-          Create Quiz
-        </button>
-        <button className="see-all-quizzes">All Quizzes</button>
-      </div>
+      <>
+        <AdminHeader />
+
+        <div className="field wrapper">
+          <h1 className="login-header">Quiz Title</h1>
+          <center>
+            <div className="control">
+              <input
+                className="input"
+                type="text"
+                name="quizTitle"
+                onChange={this.handleChange}
+              />
+            </div>
+            <div className="control">
+              <button onClick={this.handleSubmit} className="button is-black">
+                Create Quiz
+              </button>
+            </div>
+          </center>
+        </div>
+      </>
     );
   }
 }
