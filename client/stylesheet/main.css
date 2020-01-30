@@ -134,7 +134,7 @@ table {
     border-spacing: 0;
 } */
 
-.App {
+/* .App {
   text-align: center;
 }
 
@@ -155,7 +155,7 @@ label {
 input {
   margin-top: 1rem;
   outline-color: aqua;
-}
+} */
 
 button {
   margin-top: 1rem;
@@ -165,8 +165,8 @@ button {
 .quiz-selector {
   display: inline-block;
   width: 3rem;
+  height: 5rem;
   padding: 0.5rem;
-  height: 2rem;
   border: 1px solid black;
   margin-left: 0.8rem;
   text-decoration: none;
@@ -211,4 +211,9 @@ body {
 
 .navbar-item {
   font-weight: bold;
+}
+
+.is-text {
+  font-weight: bold;
+  text-decoration: none;
 }
