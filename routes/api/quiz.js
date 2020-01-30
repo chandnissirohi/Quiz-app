@@ -34,20 +34,28 @@ router.get("/:id", (req, res) => {
 
 // edit Quiz
 
-router.put("/:id", (req, res) => {
-  Quiz.findByIdAndUpdate(
-    req.params.id,
-    req.body,
-    { new: true },
-    (err, updatedQuiz) => {
-      if (err) return res.json({ err });
-      res.json({
-        updatedQuiz,
-        success: true,
-        message: "Updated Quiz Successfully"
-      });
-    }
-  );
+router.put("/update", (req, res) => {
+  const quizId = req.body.quizId;
+  Quiz.findById(quizId, (err, quiz) => {
+    if (err) return next({ err });
+    const questionSet = [...quiz.questionSet, req.body.question._id];
+    const totalScore = quiz.totalScore + 1;
+
+    Quiz.findByIdAndUpdate(
+      quizId,
+      { questionSet, totalScore },
+      { new : true },
+      (err, updatedQuiz) => {
+        if (err) return next({err});
+        // console.log(updatedQuiz);
+        res.json({
+          updatedQuiz,
+          success: true,
+          message: "Quiz updated Succesfully"
+        });
+      }
+    );
+  });
 });
 
 // delete Quiz

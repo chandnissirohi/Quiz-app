@@ -16,7 +16,8 @@ const quizSchema = new Schema(
       }
     ],
     totalScore: {
-      type: Number
+      type: Number,
+      default: 0
       // required: true
     }
 

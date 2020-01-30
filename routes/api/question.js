@@ -17,22 +17,16 @@ router.get("/", (req, res) => {
 
 //  create a question
 
-router.post("/create", (req, res) => {
-  const quizId = req.body.quizId;
+router.post("/create", (req, res) => 
   Question.create(req.body, (err, createdQuestion) => {
     if (err) return res.json({ err });
-    Quiz.findById(quizId , (err , quiz) => {
-      if (err) return next({err})
-      const questionSet = [...quiz.questionSet, createdQuestion.id];
-      const totalScore = quiz.totalScore + 1;
-      Quiz.findByIdAndUpdate(quizId , {questionSet , totalScore}, (err, updatedQuiz) => {
-        if (err) return next({ err })
-        res.json({ updatedQuiz, success: true, message: "Qui updated Succesfully"})
-      } )
-    })
-    res.json({ createdQuestion, success: true, message: "Question Created Succesfully"});
-  });
-});
+    res.json({
+      createdQuestion,
+      success: true,
+      message: "Question Created Succesfully"
+    });
+  
+}));
 
 //  find one Question
 

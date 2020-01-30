@@ -25,10 +25,9 @@ class Allquizzes extends React.Component {
         <h1>All Quizzes</h1>
         {this.state.allquizzes &&
           this.state.allquizzes.map(quiz => (
-            // <button>
-            //   {quiz.quizTitle}
-            // </button>
-            <Link to={`/quiz/${quiz._id}`}>{quiz.quizTitle}</Link>
+            <div className="quiz-selector">
+              <Link to={`/admin/quiz/new/${quiz._id}`}>{quiz.quizTitle}</Link>
+            </div>
           ))}
       </div>
     );
