@@ -1,4 +1,5 @@
 import React from "react";
+import AdminHeader from "../AdminHeader.js";
 
 class AdminLogin extends React.Component {
   constructor() {
@@ -33,28 +34,38 @@ class AdminLogin extends React.Component {
 
   render() {
     return (
-      <div>
-        <h1>Admin Login</h1>
-        <label>Email Id :</label>
-        <input
-          type="email"
-          name="email"
-          placeholder="Please enter your email"
-          onChange={this.handleChange}
-        />
-        <br />
-        <label>Password :</label>
-        <input
-          type="password"
-          name="password"
-          placeholder="Please enter your password"
-          onChange={this.handleChange}
-        />
-        <br />
-        <button onClick={this.handleSubmit} className="login">
-          Login
-        </button>
-      </div>
+      <>
+        <AdminHeader />
+
+        <div className="field wrapper">
+          <h1 className="login-header">Admin Login</h1>
+          <center>
+            <div className="control">
+              <input
+                className="input"
+                type="email"
+                name="email"
+                placeholder="Email"
+                onChange={this.handleChange}
+              />
+            </div>
+            <div className="control">
+              <input
+                className="input"
+                type="password"
+                name="password"
+                placeholder="Password"
+                onChange={this.handleChange}
+              />
+            </div>
+            <div className="control">
+              <button onClick={this.handleSubmit} className="button is-black">
+                Login
+              </button>
+            </div>
+          </center>
+        </div>
+      </>
     );
   }
 }

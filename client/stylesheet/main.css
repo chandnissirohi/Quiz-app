@@ -135,31 +135,80 @@ table {
 } */
 
 .App {
-    text-align: center;
+  text-align: center;
 }
 
 .selected {
-    background: blue;
+  background: blue;
 }
 
 .options {
-    padding: 8px;
-    border: 2px solid #000;
-    cursor: pointer;
+  padding: 8px;
+  border: 2px solid #000;
+  cursor: pointer;
 }
 
-
 label {
-    margin-right: 1rem;
-
+  margin-right: 1rem;
 }
 
 input {
-    margin-top: 1rem;
-    outline-color: aqua;
+  margin-top: 1rem;
+  outline-color: aqua;
 }
 
 button {
-    margin-top: 1rem;
-    margin-right: 2.8rem;
+  margin-top: 1rem;
+  margin-right: 2.8rem;
+}
+
+.quiz-selector {
+  display: inline-block;
+  width: 3rem;
+  padding: 0.5rem;
+  height: 2rem;
+  border: 1px solid black;
+  margin-left: 0.8rem;
+  text-decoration: none;
+}
+
+body {
+  height: 100vh;
+  color: #0A0A0A;
+}
+
+.wrapper {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: rgb(233, 180, 46);
+  margin-top: 2rem;
+}
+
+.control {
+  width: 200px;
+  margin-top: 1rem;
+
+}
+
+.button {
+  margin-top: 1rem;
+  margin-left: 3.5rem;
+  width: 100px;
+
+}
+
+
+.header-logo {
+  font-weight: bold;
+  font-size: 2rem;
+}
+
+.login-header {
+  font-weight: bold;
+  font-size: 3rem;
+}
+
+.navbar-item {
+  font-weight: bold;
 }
