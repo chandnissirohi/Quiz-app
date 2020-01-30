@@ -1,4 +1,5 @@
 import React from "react";
+import UserHeader from "../UserHeader";
 
 class UserSignup extends React.Component {
   constructor() {
@@ -40,36 +41,47 @@ class UserSignup extends React.Component {
 
   render() {
     return (
-      <div>
-        <h1>Signup</h1>
-        <label>Username :</label>
-        <input
-          type="text"
-          name="username"
-          placeholder="Please enter your username"
-          onChange={this.handleChange}
-        />
-        <br />
-        <label>Email Id :</label>
-        <input
-          type="email"
-          name="email"
-          placeholder="Please enter your email"
-          onChange={this.handleChange}
-        />
-        <br />
-        <label>Password :</label>
-        <input
-          type="password"
-          name="password"
-          placeholder="Please enter your password"
-          onChange={this.handleChange}
-        />
-        <br />
-        <button onClick={this.handleSubmit} className="login">
-          Signup
-        </button>
-      </div>
+      <>
+        <UserHeader />
+
+        <div className="field wrapper">
+          <h1 className="login-header">User Signup</h1>
+          <center>
+            <div className="control">
+              <input
+                className="input"
+                type="text"
+                name="username"
+                placeholder="Username"
+                onChange={this.handleChange}
+              />
+            </div>
+            <div className="control">
+              <input
+                className="input"
+                type="email"
+                name="email"
+                placeholder="Email"
+                onChange={this.handleChange}
+              />
+            </div>
+            <div className="control">
+              <input
+                className="input"
+                type="password"
+                name="password"
+                placeholder="Password"
+                onChange={this.handleChange}
+              />
+            </div>
+            <div className="control">
+              <button onClick={this.handleSubmit} className="button is-black">
+                Signup
+              </button>
+            </div>
+          </center>
+        </div>
+      </>
     );
   }
 }

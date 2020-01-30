@@ -12,7 +12,7 @@ import UserLogin from "./auth/UserLogin";
 import UserSignup from "./auth/UserSignup";
 import AdminLogin from "./auth/AdminLogin";
 import CreateQuiz from "./CreateQuiz";
-import AdminLoggedIn from "./AdminLoggedIn";
+import CreateQuizTitle from "./CreateQuizTitle";
 import Allquizzes from "./Allquizzes";
 
 class App extends React.Component {
@@ -20,16 +20,12 @@ class App extends React.Component {
     return (
       <div className="App">
         <Switch>
-          <Route exact path="/admins/login" component={AdminLogin} />
+          <Route exact path="/admin/login" component={AdminLogin} />
           <Route exact path="/user/signup" component={UserSignup} />
           <Route exact path="/user/login" component={UserLogin} />
           {/* <Route exact path="/quiz" component={Quiz} /> */}
           <Route exact path="/admin/quiz/new/:id" component={CreateQuiz} />
-          <Route
-            exact
-            path="/admin/loggedin/create"
-            component={AdminLoggedIn}
-          />
+          <Route exact path="/admin/quiz/title" component={CreateQuizTitle} />
           <Route exact path="/admin/quiz/allquizzes" component={Allquizzes} />
           <Route path="/" component={UserLogin} />
         </Switch>

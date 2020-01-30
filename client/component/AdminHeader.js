@@ -11,7 +11,7 @@ class AdminHeader extends React.Component {
               <h1 className="header-logo">Quiz App</h1>
             </Link>
 
-            <Link
+            <a
               role="button"
               className="navbar-burger burger"
               aria-label="menu"
@@ -21,12 +21,12 @@ class AdminHeader extends React.Component {
               <span aria-hidden="true"></span>
               <span aria-hidden="true"></span>
               <span aria-hidden="true"></span>
-            </Link>
+            </a>
           </div>
 
           <div id="navbarBasicExample" className="navbar-menu">
             <div className="navbar-start">
-              <Link to={"/admin/loggedin/create"} className="navbar-item">
+              <Link to={"/admin/quiz/title"} className="navbar-item">
                 Create Quiz
               </Link>
 

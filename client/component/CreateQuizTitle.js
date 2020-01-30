@@ -1,7 +1,8 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import AdminHeader from "./AdminHeader.js";
 
-class AdminLoggedIn extends React.Component {
+class CreateQuizTitle extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -46,9 +47,13 @@ class AdminLoggedIn extends React.Component {
               />
             </div>
             <div className="control">
-              <button onClick={this.handleSubmit} className="button is-black">
+              <Link
+                to="/admin/quiz/allquizzes"
+                onClick={this.handleSubmit}
+                className="button is-black"
+              >
                 Create Quiz
-              </button>
+              </Link>
             </div>
           </center>
         </div>
@@ -57,4 +62,4 @@ class AdminLoggedIn extends React.Component {
   }
 }
 
-export default AdminLoggedIn;
+export default CreateQuizTitle;
