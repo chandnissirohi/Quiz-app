@@ -1,4 +1,7 @@
 import React from "react";
+import { connect } from "react-redux";
+import { adminLogin } from "../../redux/actions/adminAction.js";
+import validator from "validator";
 import AdminHeader from "../AdminHeader.js";
 
 class AdminLogin extends React.Component {
@@ -21,15 +24,21 @@ class AdminLogin extends React.Component {
     const email = this.state.email;
     const password = this.state.password;
 
+    if (!email || !password) {
+      return alert("Email and password are must.");
+    }
+
+    if(!validator.isEmail(email)) {
+      return alert("Email is invalid.")
+    }
+
+    if (password.length < 6) {
+      return alert("Password must consist atleast 6 characters.");
+    }
+
     const adminData = { email, password };
 
-    fetch("/api/v1/admins/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(adminData)
-    })
-      .then(res => res.json())
-      .then(admin => console.log(admin, "admin has logged in"));
+    this.props.adminLogin(adminData);
   };
 
   render() {
@@ -70,4 +79,6 @@ class AdminLogin extends React.Component {
   }
 }
 
-export default AdminLogin;
+mapStateToProps = store => store;
+
+export default connect(mapStateToProps, { adminLogin })(AdminLogin);
