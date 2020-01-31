@@ -7,7 +7,7 @@ var mongoose = require("mongoose");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/api/users");
 var userRouter = require("./routes/api/user.js");
-var adminsRouter = require("./routes/api/admins");
+var adminRouter = require("./routes/api/admin");
 var questionRouter = require("./routes/api/question");
 var quizRouter = require("./routes/api/quiz");
 
@@ -19,7 +19,9 @@ app.set("view engine", "ejs");
 // Middlewares
 app.use(logger("dev"));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({
+  extended: false
+}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/", express.static(path.join(__dirname, "dist")));
@@ -41,9 +43,11 @@ if (process.env.NODE_ENV === "development") {
 
 //connecting to mongoose
 mongoose.connect(
-  "mongodb://localhost/Quizapp",
-  { useNewUrlParser: true, useUnifiedTopology: true },
-  function(err) {
+  "mongodb://localhost/Quizapp", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  },
+  function (err) {
     if (err) {
       console.log(err, "Not Connect To DB");
     } else {
@@ -55,7 +59,7 @@ mongoose.connect(
 
 // Routes
 app.use("/api/v1/users", usersRouter);
-app.use("/api/v1/admins", adminsRouter);
+app.use("/api/v1/admin", adminRouter);
 app.use("/api/v1/admin/question", questionRouter);
 app.use("/api/v1/admin/quiz", quizRouter);
 app.use("/api/v1/user", userRouter);

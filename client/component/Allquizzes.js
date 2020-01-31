@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 import AdminHeader from "./AdminHeader.js";
+import fetchingQuizList from "../redux/actions/quizAction";
 
 class Allquizzes extends React.Component {
   constructor() {
@@ -11,12 +13,7 @@ class Allquizzes extends React.Component {
   }
 
   componentDidMount() {
-    fetch("/api/v1/admin/quiz/", {
-      method: "GET",
-      headers: { "Content-Type": "application/json" }
-    })
-      .then(res => res.json())
-      .then(allquizzes => this.setState({ allquizzes: allquizzes.quizzes }));
+    this.props.fetchingQuizList();
   }
 
   render() {
@@ -47,4 +44,6 @@ class Allquizzes extends React.Component {
   }
 }
 
-export default Allquizzes;
+const mapStateToProps = store => store;
+
+export default connect(mapStateToProps, { fetchingQuizList })(Allquizzes);
