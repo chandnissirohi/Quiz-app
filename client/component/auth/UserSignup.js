@@ -1,4 +1,5 @@
 import React from "react";
+import validator from "validator";
 import UserHeader from "../UserHeader";
 
 class UserSignup extends React.Component {
@@ -27,6 +28,20 @@ class UserSignup extends React.Component {
       password,
       username
     };
+
+    if (!email || !password || !username) {
+      return alert("Email,Password and username are a must for signing up!");
+    }
+
+    if (!validator.isEmail(email)) {
+      return alert("Email is invalid");
+    }
+
+    if (password.length < 6) {
+      return alert("Password must consist of atleast 6 characters");
+    }
+
+    const userData = { username, email, password };
     // console.log(email, password, username);
     fetch("/api/v1/users/signup", {
       method: "POST",

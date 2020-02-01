@@ -1,11 +1,13 @@
 import React from "react";
-import UserHeader from "../UserHeader"
+import { connect } from "react-redux";
+import validator from "validator";
+import UserHeader from "../UserHeader";
+import userLogIn from "../../redux/actions/userAction";
 
 class UserLogin extends React.Component {
   constructor() {
     super();
     this.state = {
-      username: "",
       email: "",
       password: ""
     };
@@ -19,19 +21,24 @@ class UserLogin extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    const username = this.state.username;
     const email = this.state.email;
     const password = this.state.password;
 
+    if (!email || !password) {
+      return alert("Email and Password are a must!");
+    }
+
+    if (!validator.isEmail(email)) {
+      return alert("Email is invalid");
+    }
+
+    if (password.length < 6) {
+      return alert("Password must consist of atleast 6 characters");
+    }
+
     const userData = { username, email, password };
 
-    fetch("/api/v1/users/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(userData)
-    })
-      .then(res => res.json())
-      .then(user => console.log(user, "User has logged in"));
+    this.props.userLogIn(userData);
   };
 
   render() {
@@ -42,15 +49,6 @@ class UserLogin extends React.Component {
         <div className="field wrapper">
           <h1 className="login-header">User Login</h1>
           <center>
-            <div className="control">
-              <input
-                className="input"
-                type="text"
-                name="username"
-                placeholder="Username"
-                onChange={this.handleChange}
-              />
-            </div>
             <div className="control">
               <input
                 className="input"
@@ -81,4 +79,6 @@ class UserLogin extends React.Component {
   }
 }
 
-export default UserLogin;
+const mapStateToProps = store => store;
+
+export default connect(mapStateToProps, { userLogIn })(UserLogin);

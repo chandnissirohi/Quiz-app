@@ -33,7 +33,7 @@ class AdminLogin extends React.Component {
     }
 
     if (password.length < 6) {
-      return alert("Password must consist atleast 6 characters.");
+      return alert("Password must consist of atleast 6 characters.");
     }
 
     const adminData = { email, password };
