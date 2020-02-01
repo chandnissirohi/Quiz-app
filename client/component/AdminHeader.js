@@ -37,6 +37,10 @@ class AdminHeader extends React.Component {
               <Link to={"/admin/quiz/allquizzes"} className="navbar-item">
                 All Quizzes
               </Link>
+              
+              <Link to={"/"} className="navbar-item">
+                Leaderboard
+              </Link>
 
               <div className="navbar-item has-dropdown is-hoverable"></div>
             </div>

@@ -14,6 +14,8 @@ import AdminLogin from "./auth/AdminLogin";
 import CreateQuiz from "./CreateQuiz";
 import CreateQuizTitle from "./CreateQuizTitle";
 import Allquizzes from "./Allquizzes";
+import QuizAttemptByUser from "./QuizAttemptByUser.js";
+import LeaderBoard from "./LeaderBoard.js";
 
 class App extends React.Component {
   render() {
@@ -27,7 +29,9 @@ class App extends React.Component {
           <Route exact path="/admin/quiz/new/:id" component={CreateQuiz} />
           <Route exact path="/admin/quiz/title" component={CreateQuizTitle} />
           <Route exact path="/admin/quiz/allquizzes" component={Allquizzes} />
-          <Route path="/" component={UserLogin} />
+          <Route exact path="/" component={UserLogin} />
+          <Route exact path="/user/quizattempt" component={QuizAttemptByUser} />
+          <Route exact path="/user/LeaderBoard" component={LeaderBoard} />
         </Switch>
       </div>
     );

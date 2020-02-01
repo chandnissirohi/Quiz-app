@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 import AdminHeader from "./AdminHeader.js";
+import createQuiz from "../redux/actions/quizAction";
 
 class CreateQuizTitle extends React.Component {
   constructor() {
@@ -19,15 +21,16 @@ class CreateQuizTitle extends React.Component {
     const quizTitle = this.state.quizTitle;
     console.log(this.state.quizTitle);
 
-    fetch("/api/v1/admin/quiz/create", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ quizTitle })
-    })
-      .then(res => res.json())
-      .then(createquiz =>
-        console.log(createquiz, "Empty quiz has been created")
-      );
+    // fetch("/api/v1/admin/quiz/create", {
+    //   method: "POST",
+    //   headers: { "Content-Type": "application/json" },
+    //   body: JSON.stringify({ quizTitle })
+    // })
+    //   .then(res => res.json())
+    //   .then(createquiz =>
+    //     console.log(createquiz, "Empty quiz has been created")
+    //   );
+    this.props.createQuizTitileAndQuiz({ quizTitle });
   };
 
   render() {
@@ -62,4 +65,6 @@ class CreateQuizTitle extends React.Component {
   }
 }
 
-export default CreateQuizTitle;
+const mapStateToProps = store => store;
+
+export default connect(mapStateToProps, {createQuizTitileAndQuiz})(CreateQuizTitle);

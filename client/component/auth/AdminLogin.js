@@ -28,8 +28,8 @@ class AdminLogin extends React.Component {
       return alert("Email and password are must.");
     }
 
-    if(!validator.isEmail(email)) {
-      return alert("Email is invalid.")
+    if (!validator.isEmail(email)) {
+      return alert("Email is invalid.");
     }
 
     if (password.length < 6) {
@@ -79,6 +79,6 @@ class AdminLogin extends React.Component {
   }
 }
 
-mapStateToProps = store => store;
+const mapStateToProps = store => store;
 
 export default connect(mapStateToProps, { adminLogin })(AdminLogin);

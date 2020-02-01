@@ -1,5 +1,7 @@
 import React from "react";
+import { connect } from "react-redux";
 import AdminHeader from "./AdminHeader.js";
+import creatingQuestion from "../redux/actions/quizAction";
 
 class CreateQuiz extends React.Component {
   constructor() {
@@ -51,21 +53,23 @@ class CreateQuiz extends React.Component {
       answer
     };
 
-    fetch("/api/v1/admin/question/create", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(quizData)
-    })
-      .then(res => res.json())
-      .then(question =>
-        fetch("/api/v1/admin/quiz/update", {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ quizId, question })
-        })
-          .then(res => res.json())
-          .then(updatedQuiz => console.log(updatedQuiz, "updated"))
-      );
+    // fetch("/api/v1/admin/question/create", {
+    //   method: "POST",
+    //   headers: { "Content-Type": "application/json" },
+    //   body: JSON.stringify(quizData)
+    // })
+    //   .then(res => res.json())
+    //   .then(question =>
+    //     fetch("/api/v1/admin/quiz/update", {
+    //       method: "PUT",
+    //       headers: { "Content-Type": "application/json" },
+    //       body: JSON.stringify({ quizId, question })
+    //     })
+    //       .then(res => res.json())
+    //       .then(updatedQuiz => console.log(updatedQuiz, "updated"))
+    //   );
+
+    this.props.creatingQuestion(quizData);
   };
 
   render() {
@@ -142,9 +146,9 @@ class CreateQuiz extends React.Component {
           </center>
         </div>
       </>
-      
     );
   }
 }
 
-export default CreateQuiz;
+const mapStateToProps = store => store;
+export default connect(mapStateToProps, { creatingQuestion })(CreateQuiz);

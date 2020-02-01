@@ -217,3 +217,26 @@ body {
   font-weight: bold;
   text-decoration: none;
 }
+
+.button1 {
+  width: 500px;
+}
+
+.heading {
+  font-size: 60rem;
+}
+
+.flex {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.user-scores {
+  width: 200px;
+}
+
+.board-label {
+  margin-left: 8rem;
+
+}
