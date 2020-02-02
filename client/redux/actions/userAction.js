@@ -1,4 +1,4 @@
-const userSignUp = userData => dispatch => {
+const userSignUp = (userData , cb) => dispatch => {
   dispatch({
     type: "USER_CREATE_START"
   });
@@ -16,6 +16,7 @@ const userSignUp = userData => dispatch => {
         payload: user.userData
       })
     );
+    cb();
 };
 
 const userLogIn = userData => dispatch => {

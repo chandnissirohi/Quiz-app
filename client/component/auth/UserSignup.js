@@ -20,6 +20,9 @@ class UserSignup extends React.Component {
     });
   };
 
+  cb = () => {
+    this.props.history.push("/user/login");
+  }
   handleSubmit = event => {
     event.preventDefault();
     const { email, username, password } = this.state;
@@ -41,7 +44,7 @@ class UserSignup extends React.Component {
       return alert("Password must consist of atleast 6 characters");
     }
 
-    this.props.userSignUp(userData);
+    this.props.userSignUp(userData , this.cb);
   };
 
   render() {
