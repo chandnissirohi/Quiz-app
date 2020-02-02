@@ -1,6 +1,8 @@
 import React from "react";
 import validator from "validator";
+import { connect } from "react-redux";
 import UserHeader from "../UserHeader";
+import { userSignUp } from "../../redux/actions/userAction";
 
 class UserSignup extends React.Component {
   constructor() {
@@ -20,9 +22,7 @@ class UserSignup extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    const email = this.state.email;
-    const password = this.state.password;
-    const username = this.state.username;
+    const { email, username, password } = this.state;
     const userData = {
       email,
       password,
@@ -41,20 +41,11 @@ class UserSignup extends React.Component {
       return alert("Password must consist of atleast 6 characters");
     }
 
-    const userData = { username, email, password };
-    // console.log(email, password, username);
-    fetch("/api/v1/users/signup", {
-      method: "POST",
-      body: JSON.stringify(userData),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-      .then(res => res.json())
-      .then(user => console.log(user, "user created"));
+    this.props.userSignUp(userData);
   };
 
   render() {
+    console.log(this.props, "inside userSignUp component");
     return (
       <>
         <UserHeader />
@@ -101,4 +92,6 @@ class UserSignup extends React.Component {
   }
 }
 
-export default UserSignup;
+const mapStateToProps = Store => Store;
+
+export default connect(mapStateToProps, { userSignUp })(UserSignup);

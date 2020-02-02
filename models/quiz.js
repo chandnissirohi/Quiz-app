@@ -17,16 +17,9 @@ const quizSchema = new Schema(
     ],
     totalScore: {
       type: Number,
-      default: 0
-      // required: true
+      default: 0,
+      required: true
     }
-
-    // userId: [
-    //   {
-    //     type: Schema.Types.ObjectId,
-    //     ref: "userSchema"
-    //   }
-    // ]
   },
   { timestamps: true }
 );

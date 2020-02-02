@@ -17,7 +17,7 @@ const fetchingQuizList = () => dispatch => {
     );
 };
 
-const createQuizTitileAndQuiz = ({ quizTitle }) => dispatch => {
+const createQuizTitileAndQuiz = ({ quizTitle }, cb) => dispatch => {
   dispatch({
     type: "CREATE_QUIZ_START"
   });
@@ -33,6 +33,7 @@ const createQuizTitileAndQuiz = ({ quizTitle }) => dispatch => {
         payload: createquiz.quizTitle
       })
     );
+  cb();
 };
 
 const fetchingQuestionList = () => dispatch => {
@@ -48,12 +49,13 @@ const fetchingQuestionList = () => dispatch => {
     .then(questionList =>
       dispatch({
         type: "FETCH_QUESTION_LIST_START",
-        action: questionList.questions
+        payload: questionList.questions
       })
     );
 };
 
 const creatingQuestion = quizData => dispatch => {
+  console.log(quizData);
   dispatch({
     type: "CREATE_QUESTION_START"
   });
@@ -64,34 +66,42 @@ const creatingQuestion = quizData => dispatch => {
   })
     .then(res => res.json())
     .then(question =>
+      // console.log(question)
       fetch("/api/v1/admin/quiz/update", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ quizId, question })
+        body: JSON.stringify({
+          quizId: quizData.quizId,
+          question: question.createdQuestion
+        })
       })
         .then(res => res.json())
         .then(updatedQuiz =>
           dispatch({
             type: "CREATE_QUESTION_SUCCESS",
-            payload: updatedQuiz.quizData
+            payload: updatedQuiz
           })
         )
     );
 };
 
 const updatingQuiz = () => dispatch => {
-    dispatch({
-        type: "UPDATE_QUIZ_START"
-    })
-    fetch("/api/v1/admin/update", {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify()
-    }).then(res => res.json()).then(updatedQuiz => dispatch({
+  dispatch({
+    type: "UPDATE_QUIZ_START"
+  });
+  fetch("/api/v1/admin/update", {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify()
+  })
+    .then(res => res.json())
+    .then(updatedQuiz =>
+      dispatch({
         type: "UPDATE_QUIZ_START_SUCCESS",
-        payload: updatedQuiz.({quizSET, quizScore})
-    }))
-}
+        payload: updatedQuiz
+      })
+    );
+};
 
 // const deletingQuiz = () => dispatch => {
 //     dispatch({

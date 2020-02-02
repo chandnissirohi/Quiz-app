@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 
 const Schema = mongoose.Schema;
+
 const userSchema = new Schema({
   username: {
     type: String,
@@ -16,9 +17,15 @@ const userSchema = new Schema({
     type: String,
     required: true
   },
-  isAdmin: {
-    type: Boolean,
-    default: false
+  quizSubmissions: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "quizSetSubmissionSchema"
+    }
+  ],
+  score: {
+    type: Number,
+    default: 0,
   }
 });
 

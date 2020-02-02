@@ -2,14 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import AdminHeader from "./AdminHeader.js";
-import fetchingQuizList from "../redux/actions/quizAction";
+import { fetchingQuizList } from "../redux/actions/quizAction";
 
 class Allquizzes extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      allquizzes: ""
-    };
+  constructor(props) {
+    super(props);
   }
 
   componentDidMount() {
@@ -17,7 +14,7 @@ class Allquizzes extends React.Component {
   }
 
   render() {
-    // console.log(this.state);
+    console.log(this.props, "inside all quiz component");
     return (
       <>
         <AdminHeader />
@@ -26,9 +23,9 @@ class Allquizzes extends React.Component {
             <h1 className="login-header">All Quizzes</h1>
           </center>
           <div className="field">
-            {this.state.allquizzes &&
-              this.state.allquizzes.map(quiz => (
-                <div className="quiz-selector control">
+            {this.props.quizReducer.quizList &&
+              this.props.quizReducer.quizList.map((quiz , i) => (
+                <div key ={i} className="quiz-selector control">
                   <Link
                     className="button is-text"
                     to={`/admin/quiz/new/${quiz._id}`}

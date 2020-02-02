@@ -20,7 +20,7 @@ router.post("/login", (req, res, next) => {
   User.findOne({ email }, (err, user) => {
     if (err) return next(err);
     if (!user) return res.json({ success: false, message: "Invalid email" });
-    user.verifyPassword(password, (err, matched) => {
+    User.verifyPassword(password, (err, matched) => {
       if (err) return next(err);
       if (!matched)
         return res
@@ -46,7 +46,7 @@ router.post("/login", (req, res, next) => {
   });
 });
 
-// get user's listings
+// get user list
 
 router.get("/", (req, res, next) => {
   User.find({}, "-password", (err, users) => {
@@ -74,7 +74,7 @@ router.use(auth.verifyToken);
 
 router.put("/:id", (req, res, next) => {
   const id = req.params.id;
-  user.findByIdAndUpdate(id, req.body, { new: true }, (err, user) => {
+  User.findByIdAndUpdate(id, req.body, { new: true }, (err, user) => {
     if (err) return next(err);
     if (!user) return res.json({ success: false, message: "User not found" });
     res.json({ user, success: true });

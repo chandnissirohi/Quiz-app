@@ -9,6 +9,7 @@ router.use(auth.verifyToken);
 // get currently logged in user
 
 router.get("/", (req, res, next) => {
+  const {username} = req.body;
   user.findOne({ username }, "-password").exec((err, user) => {
     if (err) return next(err);
     if (!user) {

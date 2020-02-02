@@ -35,9 +35,11 @@ router.get("/:id", (req, res) => {
 // edit Quiz
 
 router.put("/update", (req, res) => {
+  console.log(req.body , "req in /update");
   const quizId = req.body.quizId;
   Quiz.findById(quizId, (err, quiz) => {
     if (err) return next({ err });
+    console.log(quiz);
     const questionSet = [...quiz.questionSet, req.body.question._id];
     const totalScore = quiz.totalScore + 1;
 

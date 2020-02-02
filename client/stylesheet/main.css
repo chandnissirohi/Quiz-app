@@ -240,3 +240,7 @@ body {
   margin-left: 8rem;
 
 }
+
+.block {
+  display: inline-block;
+}

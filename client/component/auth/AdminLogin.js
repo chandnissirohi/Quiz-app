@@ -19,6 +19,10 @@ class AdminLogin extends React.Component {
     });
   };
 
+  cb = () => {
+    this.props.history.push("/admin/quiz/allquizzes");
+  }
+
   handleSubmit = event => {
     event.preventDefault();
     const email = this.state.email;
@@ -38,10 +42,11 @@ class AdminLogin extends React.Component {
 
     const adminData = { email, password };
 
-    this.props.adminLogin(adminData);
+    this.props.adminLogin(adminData , this.cb);
   };
 
   render() {
+    console.log(this.props, "inside adminLogin component")
     return (
       <>
         <AdminHeader />

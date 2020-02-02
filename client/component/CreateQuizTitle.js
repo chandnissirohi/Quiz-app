@@ -2,15 +2,19 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import AdminHeader from "./AdminHeader.js";
-import createQuiz from "../redux/actions/quizAction";
+import { createQuizTitileAndQuiz } from "../redux/actions/quizAction";
 
 class CreateQuizTitle extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       quizTitle: ""
     };
   }
+
+  cb = () => {
+    this.props.history.push("/admin/quiz/allquizzes");
+  };
 
   handleChange = event => {
     this.setState({ [event.target.name]: `${event.target.value}` });
@@ -30,10 +34,11 @@ class CreateQuizTitle extends React.Component {
     //   .then(createquiz =>
     //     console.log(createquiz, "Empty quiz has been created")
     //   );
-    this.props.createQuizTitileAndQuiz({ quizTitle });
+    this.props.createQuizTitileAndQuiz({ quizTitle }, cb);
   };
 
   render() {
+    console.log(this.props, "inside createQuizTitle");
     return (
       <>
         <AdminHeader />
@@ -67,4 +72,6 @@ class CreateQuizTitle extends React.Component {
 
 const mapStateToProps = store => store;
 
-export default connect(mapStateToProps, {createQuizTitileAndQuiz})(CreateQuizTitle);
+export default connect(mapStateToProps, { createQuizTitileAndQuiz })(
+  CreateQuizTitle
+);

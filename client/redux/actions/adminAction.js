@@ -1,4 +1,4 @@
-const adminLogin = adminData => dispatch => {
+const adminLogin = (adminData , cb) => dispatch => {
   dispatch({
     type: "ADMIN_LOGIN_START"
   });
@@ -16,6 +16,7 @@ const adminLogin = adminData => dispatch => {
         payload: admin
       })
     );
+    cb();
 };
 
 const adminLogout = (adminData) => dispatch => {
@@ -35,6 +36,11 @@ const adminLogout = (adminData) => dispatch => {
       })
     );
 };
+
+//TO DO : 
+// const deleteUser = () => dispatch => {
+
+// }
 
 
 

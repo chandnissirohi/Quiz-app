@@ -1,7 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import AdminHeader from "./AdminHeader.js";
-import creatingQuestion from "../redux/actions/quizAction";
+import { creatingQuestion } from "../redux/actions/quizAction";
+import QuestionCard from "./QuestionCard.js";
 
 class CreateQuiz extends React.Component {
   constructor() {
@@ -25,9 +26,7 @@ class CreateQuiz extends React.Component {
       // headers: { "Content-Type": "application/json" }
     })
       .then(res => res.json())
-      .then(quiz => {
-        this.setState({ quiz: quiz.quiz });
-      });
+      .then(quiz => this.setState({ quiz: quiz.quiz }));
   }
 
   handleChange = event => {
@@ -70,10 +69,18 @@ class CreateQuiz extends React.Component {
     //   );
 
     this.props.creatingQuestion(quizData);
+    this.setState({
+      question: "",
+      option1: "",
+      option2: "",
+      option3: "",
+      option4: "",
+      answer: ""
+    });
   };
 
   render() {
-    // console.log(this.state);
+    // console.log(this.props, "inside createquiz component");
     return (
       <>
         <AdminHeader />
@@ -84,56 +91,62 @@ class CreateQuiz extends React.Component {
           </h1>
           <center>
             <div className="control">
-              <label class="label">Question 1:</label>
+              <label className="label">Question 1:</label>
               <input
                 className="input"
                 type="text"
                 name="question"
+                value={this.state.question}
                 onChange={this.handleChange}
               />
             </div>
             <div className="control">
-              <label class="label">Option 1:</label>
+              <label className="label">Option 1:</label>
               <input
                 className="input"
                 type="text"
                 name="option1"
+                value={this.state.option1}
                 onChange={this.handleChange}
               />
             </div>
             <div className="control">
-              <label class="label">Option 2:</label>
+              <label className="label">Option 2:</label>
               <input
                 className="input"
                 type="text"
                 name="option2"
+                value={this.state.option2}
                 onChange={this.handleChange}
               />
             </div>
             <div className="control">
-              <label class="label">Option 3:</label>
+              <label className="label">Option 3:</label>
               <input
                 className="input"
                 type="text"
                 name="option3"
+                value={this.state.option3}
                 onChange={this.handleChange}
               />
             </div>
             <div className="control">
-              <label class="label">Option 4:</label>
+              <label className="label">Option 4:</label>
               <input
                 className="input"
                 type="text"
                 name="option4"
+                value={this.state.option4}
                 onChange={this.handleChange}
               />
             </div>
             <div className="control">
-              <label class="label">Correct Answer:</label>
+              <label className="label">Correct Answer:</label>
               <input
                 className="input"
                 type="text"
                 name="answer"
+                value={this.state.answer}
                 onChange={this.handleChange}
               />
             </div>
@@ -144,6 +157,7 @@ class CreateQuiz extends React.Component {
               </button>
             </div>
           </center>
+          <QuestionCard />
         </div>
       </>
     );

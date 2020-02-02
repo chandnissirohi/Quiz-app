@@ -1,3 +1,23 @@
+const userSignUp = userData => dispatch => {
+  dispatch({
+    type: "USER_CREATE_START"
+  });
+  fetch("/api/v1/users/signup", {
+    method: "POST",
+    body: JSON.stringify(userData),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+    .then(res => res.json())
+    .then(user =>
+      dispatch({
+        type: "USER_CREATE_SUCCESS",
+        payload: user.userData
+      })
+    );
+};
+
 const userLogIn = userData => dispatch => {
   dispatch({
     type: "USER_LOGIN_START"
@@ -23,7 +43,10 @@ const userLogOut = userData => dispatch => {
   localStorage.clear();
 };
 
+
+
 module.exports = {
   userLogIn,
-  userLogOut
+  userLogOut,
+  userSignUp
 };

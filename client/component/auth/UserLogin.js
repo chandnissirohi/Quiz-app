@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import validator from "validator";
 import UserHeader from "../UserHeader";
-import userLogIn from "../../redux/actions/userAction";
+import { userLogIn } from "../../redux/actions/userAction";
 
 class UserLogin extends React.Component {
   constructor() {
@@ -21,8 +21,7 @@ class UserLogin extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    const email = this.state.email;
-    const password = this.state.password;
+    const {email , password} = this.state;
 
     if (!email || !password) {
       return alert("Email and Password are a must!");
@@ -42,6 +41,7 @@ class UserLogin extends React.Component {
   };
 
   render() {
+    console.log(this.props, "inside userlogin component");
     return (
       <>
         <UserHeader />
