@@ -24,17 +24,8 @@ class CreateQuizTitle extends React.Component {
     event.preventDefault();
     const quizTitle = this.state.quizTitle;
     console.log(this.state.quizTitle);
-
-    // fetch("/api/v1/admin/quiz/create", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify({ quizTitle })
-    // })
-    //   .then(res => res.json())
-    //   .then(createquiz =>
-    //     console.log(createquiz, "Empty quiz has been created")
-    //   );
-    this.props.createQuizTitileAndQuiz({ quizTitle }, cb);
+    if(!quizTitle) return alert("Please enter a Quiz Title!")
+    this.props.createQuizTitileAndQuiz({ quizTitle }, this.cb);
   };
 
   render() {

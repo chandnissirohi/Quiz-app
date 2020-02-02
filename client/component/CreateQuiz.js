@@ -42,6 +42,11 @@ class CreateQuiz extends React.Component {
     const option3 = this.state.option3;
     const option4 = this.state.option4;
     const answer = this.state.answer;
+
+    if(!option1 || !option2 || !option3 || !option4)
+      return alert("Please enter all options");
+
+    if(!answer) return alert("Please enter the correct answer.");
     const quizData = {
       quizId,
       question,
@@ -52,23 +57,7 @@ class CreateQuiz extends React.Component {
       answer
     };
 
-    // fetch("/api/v1/admin/question/create", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify(quizData)
-    // })
-    //   .then(res => res.json())
-    //   .then(question =>
-    //     fetch("/api/v1/admin/quiz/update", {
-    //       method: "PUT",
-    //       headers: { "Content-Type": "application/json" },
-    //       body: JSON.stringify({ quizId, question })
-    //     })
-    //       .then(res => res.json())
-    //       .then(updatedQuiz => console.log(updatedQuiz, "updated"))
-    //   );
-
-    this.props.creatingQuestion(quizData);
+    this.props.creatingQuestion(quizData , () => this.componentDidMount(this.props));
     this.setState({
       question: "",
       option1: "",
@@ -77,10 +66,11 @@ class CreateQuiz extends React.Component {
       option4: "",
       answer: ""
     });
+    ;
   };
 
   render() {
-    // console.log(this.props, "inside createquiz component");
+    console.log(this.props, "inside createquiz component");
     return (
       <>
         <AdminHeader />

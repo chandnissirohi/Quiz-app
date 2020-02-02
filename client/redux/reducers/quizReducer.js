@@ -18,7 +18,8 @@ function quizReducer(state = INITIAL_STATE, action) {
     case "CREATE_QUIZ_SUCCESS":
       return {
         ...state,
-        isCreatingQuiz: false
+        isCreatingQuiz: false,
+        quizData: action.payload.updatedQuiz
       };
     case "FETCH_QUIZ_START":
       return {

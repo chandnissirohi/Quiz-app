@@ -1,4 +1,4 @@
-const QuizSetSubmission = require("../../models/quizSetSubmission");
+const QuizSetSubmission = require("../models/quizSetSubmission");
 
 
 module.exports = {

@@ -1,5 +1,6 @@
 const auth = require('../utils/auth');
 const Admin = require('../models/admin');
+const jwt = require('jsonwebtoken');
 
 module.exports = {
   login: (req, res, next) => {
@@ -15,6 +16,13 @@ module.exports = {
       }
       const token = auth.generateToken(email);
       return res.status(200).json({ admin, token });
+    });
+  },
+  verify: (req, res, next) => {
+    const token = req.headers.authorization;
+    const email = jwt.verify(token, 'abcdef');
+    Admin.findOne({ email }, (err, admin) => {
+      return err ? res.json(err) : res.json(admin);
     });
   }
 

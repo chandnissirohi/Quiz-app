@@ -1,17 +1,8 @@
 const express = require('express');
 const userController = require('../../controllers/user');
-const User = require('../../models/user');
-const jwt = require('jsonwebtoken');
-
 const router = express.Router();
 
-router.get('/me', (req, res, next) => {
-  const token = req.headers.authorization;
-  const email = jwt.verify(token, 'abcdef');
-  User.findOne({ email }, (err, user) => {
-    return err ? res.json(err) : res.json(user);
-  });
-});
+router.get('/me', );
 
 router.post('/signup', userController.register);
 

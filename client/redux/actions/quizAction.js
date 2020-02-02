@@ -54,8 +54,7 @@ const fetchingQuestionList = () => dispatch => {
     );
 };
 
-const creatingQuestion = quizData => dispatch => {
-  console.log(quizData);
+const creatingQuestion = (quizData , cb ) => dispatch => {
   dispatch({
     type: "CREATE_QUESTION_START"
   });
@@ -65,8 +64,11 @@ const creatingQuestion = quizData => dispatch => {
     body: JSON.stringify(quizData)
   })
     .then(res => res.json())
-    .then(question =>
+    .then(question => {
       // console.log(question)
+      dispatch({
+        type:"CREATE_QUESTION_SUCCESS"
+      }),
       fetch("/api/v1/admin/quiz/update", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -78,11 +80,14 @@ const creatingQuestion = quizData => dispatch => {
         .then(res => res.json())
         .then(updatedQuiz =>
           dispatch({
-            type: "CREATE_QUESTION_SUCCESS",
+            type: "CREATE_QUIZ_SUCCESS",
             payload: updatedQuiz
           })
         )
+        .then(cb());
+    }
     );
+   
 };
 
 const updatingQuiz = () => dispatch => {

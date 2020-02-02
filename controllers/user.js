@@ -1,6 +1,6 @@
 const validator = require('validator');
 const User = require('../models/user');
-
+const jwt = require('jsonwebtoken');
 const auth = require('../utils/auth');
 
 module.exports = {
@@ -75,6 +75,13 @@ module.exports = {
       if (err) return res.json(err);
       if (!user) return res.json({ success: false, message: "User not found" });
       res.json({ user, success: true });
+    });
+  },
+  verify: (req, res, next) => {
+    const token = req.headers.authorization;
+    const email = jwt.verify(token, 'abcdef');
+    User.findOne({ email }, (err, user) => {
+      return err ? res.json(err) : res.json(user);
     });
   }
 }
