@@ -1,11 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const quizController = require("../../controllers/quiz")
-const jwt = require("jsonwebtoken");
-
-const Quiz = require("../../models/quiz");
-const Admin = require("../../models/admin");
-
 
 router.get("/", quizController.list);
 
