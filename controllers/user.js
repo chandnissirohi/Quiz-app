@@ -4,7 +4,7 @@ const User = require('../models/user');
 const auth = require('../utils/auth');
 
 module.exports = {
-  registerUser: (req, res, next) => {
+  register: (req, res, next) => {
     const { username, email, password } = req.body;
     console.log(req.body, 'in controller');
     if (!email || !password || !username) {
@@ -24,7 +24,7 @@ module.exports = {
         });
   },
 
-  loginUser: (req, res, next) => {
+  login: (req, res, next) => {
     console.log('inside controller');
     const { password, email } = req.body;
     if (!email || !password) {
@@ -46,7 +46,7 @@ module.exports = {
     });
   },
 
-  findUser: (req, res) => {
+  singleUser: (req, res) => {
     User.findById(req.params.userId)
       .then(user => {
         if (!user) {
@@ -69,7 +69,7 @@ module.exports = {
       });
   },
 
-  userList: (req, res, next) => {
+  list: (req, res, next) => {
     const id = req.params.id;
     User.findById(id, "-password", (err, user) => {
       if (err) return res.json(err);

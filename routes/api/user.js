@@ -13,13 +13,13 @@ router.get('/me', (req, res, next) => {
   });
 });
 
-router.post('/signup', userController.registerUser);
+router.post('/signup', userController.register);
 
-router.post('/login', userController.loginUser);
+router.post('/login', userController.login);
 
-router.get('/:id', userController.findUser);
+router.get('/:id', userController.singleUser);
 
-router.get('/list', userController.userList);
+router.get('/list', userController.list);
 
 // router.put('/update', userController.updateUser);
 
