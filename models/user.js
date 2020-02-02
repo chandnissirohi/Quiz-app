@@ -35,7 +35,7 @@ userSchema.pre("save", function(next) {
       if (err) return res.json({ err });
       this.password = password;
       next();
-    });
+    })
   } else {
     next();
   }
