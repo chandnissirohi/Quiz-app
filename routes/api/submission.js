@@ -1,37 +1,13 @@
 const express = require("express");
 const router = express.Router();
-const jwt = require("jsonwebtoken");
 
-const Submission = require("../../models/submission");
+const submissionController = require("../../controllers/submission")
 
-// getting all submissions
+router.get("/list" , submissionController.submissionList);
 
-router.get("/", (req, res) => {
-  questionSubmission.find({}, (err, questionSubmission) => {
-    if (err) return res.json({ err });
-    res.json({ questionSubmission, success: true });
-  });
-});
+router.post("/create" , submissionController.createSubmission);
 
-// create a submission
+router.get("/:id" , submissionController.singleSubmission);
 
-router.post("/create", (req, res) => {
-  Submission.create(req.body, (err, createdSubmission) => {
-    if (err) return res.json({ err });
-    res.json({ createdSubmission, success: true });
-  });
-});
-
-// find one submission
-
-router.get("/:id", (req, res) => {
-  Submission.findById(
-    { _id: req.params.id },
-    (err, submission) => {
-      if (err) return next({ err });
-      res.json({ submission, success: true });
-    }
-  );
-});
 
 module.exports = router;

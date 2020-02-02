@@ -5,7 +5,6 @@ var logger = require("morgan");
 var mongoose = require("mongoose");
 
 var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/api/users");
 var userRouter = require("./routes/api/user.js");
 var adminRouter = require("./routes/api/admin");
 var questionRouter = require("./routes/api/question");
@@ -62,7 +61,6 @@ mongoose.connect(
 );
 
 // Routes
-app.use("/api/v1/users", usersRouter);
 app.use("/api/v1/admin", adminRouter);
 app.use("/api/v1/admin/question", questionRouter);
 app.use("/api/v1/admin/quiz", quizRouter);
