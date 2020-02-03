@@ -25,12 +25,4 @@ module.exports = {
       return err ? res.json(err) : res.json(admin);
     });
   }
-
-//   removeStudent: (req, res, next) => {
-//     const { id } = req.params;
-//     Student.findByIdAndDelete(id, (error, student) => {
-//       if (error) return next(error);
-//       return res.status(200).json({ student });
-//     });
-//   },
 };

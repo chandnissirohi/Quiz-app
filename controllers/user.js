@@ -86,28 +86,25 @@ module.exports = {
   }
 }
 
-  // updateStudentPoints: (req, res, next) => {
-  //   let { studentid, contentid } = req.body;
-  //   console.log(studentid, contentid, 'in updatepoints');
-  //   let sentContent = [];
-  //   let points =
-  //     new Date(req.body.createdAt).valueOf() + 172800 * 1000 > Date.now()
-  //       ? 1
-  //       : -1;
-  //   Student.findById(studentid)
+  // updateUserScore: (req, res, next) => {
+  //   let { userid, quizid } = req.body;
+  //   console.log(userid, contentid, 'in updatescore');
+  //   let attemptedQuiz = [];
+  //   let score =0;
+  //   User.findById(userid)
   //     .then(student => {
-  //       sentContent = [...student.sentContent, contentid];
+  //       attemptedQuiz = [...user.attemptedQuiz, quizid];
   //     })
   //     .then(() =>
-  //       Student.findByIdAndUpdate(
+  //       User.findByIdAndUpdate(
   //         studentid,
   //         {
-  //           sentContent,
-  //           points,
+  //           attemptedQuiz,
+  //           score,
   //         },
-  //         (err, updatedStudent) => {
-  //           console.log(updatedStudent, 'updatedStudent with points');
-  //           err ? res.json(err) : res.json(updatedStudent);
+  //         (err, updatedUser) => {
+  //           console.log(updatedUser, 'updatedUser with points');
+  //           err ? res.json(err) : res.json(updatedUser);
   //         },
   //       ),
   //     );
@@ -124,10 +121,10 @@ module.exports = {
 //         username: req.body.username,
 //       },
 //       { new: true },
-//       (err, student) => {
-//         console.log(student, 'student inside ctlr');
+//       (err, user) => {
+//         console.log(user, 'user inside ctlr');
 //         if (err) return next(err);
-//         return res.status(200).json({ student });
+//         return res.status(200).json({ user });
 //       },
 //     );
 //   },
