@@ -23,6 +23,10 @@ class AdminLogin extends React.Component {
     this.props.history.push("/admin/quiz/allquizzes");
   }
 
+  notAdmin = () => {
+    return alert("Invalid Admin Credentials");
+  }
+
   handleSubmit = event => {
     event.preventDefault();
     const email = this.state.email;
@@ -42,7 +46,7 @@ class AdminLogin extends React.Component {
 
     const adminData = { email, password };
 
-    this.props.adminLogin(adminData , this.cb);
+    this.props.adminLogin(adminData , this.cb , this.notAdmin);
   };
 
   render() {

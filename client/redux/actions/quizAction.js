@@ -1,3 +1,17 @@
+const fetchQuizData = (id) => dispatch => {
+  dispatch({
+    type: "FETCH_QUIZ_START"
+  })
+  fetch(`/api/v1/admin/quiz/${id}`, {
+    method: "GET"
+  })
+    .then(res => res.json())
+    .then(quiz => dispatch({
+      type: "FETCH_QUIZ_SUCCESS",
+      payload: quiz
+    }));
+}
+
 const fetchingQuizList = () => dispatch => {
   dispatch({
     type: "FETCH_QUIZ_LIST_START"
@@ -27,11 +41,12 @@ const createQuizTitileAndQuiz = ({ quizTitle }, cb) => dispatch => {
     body: JSON.stringify({ quizTitle })
   })
     .then(res => res.json())
-    .then(createquiz =>
-      dispatch({
-        type: "CREATE_QUIZ_START_SUCCESS",
-        payload: createquiz.quizTitle
-      })
+    .then(createdQuiz =>
+      console.log(createdQuiz)
+      // dispatch({
+      //   type: "CREATE_QUIZ_SUCCESS",
+      //   payload: createdquiz
+      // })
     );
   cb();
 };
@@ -54,18 +69,26 @@ const fetchingQuestionList = () => dispatch => {
     );
 };
 
-const creatingQuestion = (quizData , cb ) => dispatch => {
+const creatingQuestion = (quizData ) => dispatch => {
+  const quizData1 = {
+   quizId : quizData.quizId.id,
+   answer: quizData.answer,
+   option1: quizData.option1,
+   option2: quizData.option2,
+   option3: quizData.option3,
+   option4: quizData.option4,
+   question: quizData.question
+  }
   dispatch({
     type: "CREATE_QUESTION_START"
   });
   fetch("/api/v1/admin/question/create", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(quizData)
+    body: JSON.stringify(quizData1)
   })
     .then(res => res.json())
     .then(question => {
-      // console.log(question)
       dispatch({
         type:"CREATE_QUESTION_SUCCESS"
       }),
@@ -73,7 +96,7 @@ const creatingQuestion = (quizData , cb ) => dispatch => {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          quizId: quizData.quizId,
+          quizId: quizData.quizId.id,
           question: question.createdQuestion
         })
       })
@@ -83,8 +106,7 @@ const creatingQuestion = (quizData , cb ) => dispatch => {
             type: "CREATE_QUIZ_SUCCESS",
             payload: updatedQuiz
           })
-        )
-        .then(cb());
+        );
     }
     );
    
@@ -115,6 +137,7 @@ const updatingQuiz = () => dispatch => {
 // }
 
 module.exports = {
+  fetchQuizData,
   fetchingQuizList,
   createQuizTitileAndQuiz,
   fetchingQuestionList,

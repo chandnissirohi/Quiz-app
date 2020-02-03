@@ -2,7 +2,7 @@ const userSignUp = (userData , cb) => dispatch => {
   dispatch({
     type: "USER_CREATE_START"
   });
-  fetch("/api/v1/users/signup", {
+  fetch("/api/v1/user/signup", {
     method: "POST",
     body: JSON.stringify(userData),
     headers: {
@@ -23,7 +23,7 @@ const userLogIn = userData => dispatch => {
   dispatch({
     type: "USER_LOGIN_START"
   });
-  fetch("/api/v1/users/login", {
+  fetch("/api/v1/user/login", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(userData)

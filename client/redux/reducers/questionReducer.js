@@ -1,11 +1,23 @@
 const INITIAL_STATE = {
   isCreatingQuestion: false,
-  isLoadingQuestionList: false,
-  questionList: null
+  isLoadingSingleQuestion: false,
+  singleQuestionData: null,
 };
 
 function questionReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
+
+    case 'FETCH_QUESTION_START': 
+      return {
+        ...state,
+        isLoadingSingleQuestion: true
+      };
+    case 'FETCH_QUESTION_SUCCESS':
+      return {
+        ...state,
+        isLoadingSingleQuestion: false,
+        singleQuestionData: action.payload
+      };
     case "FETCH_QUESTION_LIST_START":
       return {
         ...state,

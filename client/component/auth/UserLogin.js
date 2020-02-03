@@ -35,7 +35,7 @@ class UserLogin extends React.Component {
       return alert("Password must consist of atleast 6 characters");
     }
 
-    const userData = { username, email, password };
+    const userData = { email, password };
 
     this.props.userLogIn(userData);
   };

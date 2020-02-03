@@ -20,12 +20,12 @@ module.exports = {
         });
       },
     update: (req, res) => {
-        // console.log(req.body.question , "req in /update");
+        console.log(req.body , "req in /update");
         const quizId = req.body.quizId;
         Quiz.findById(quizId, (err, quiz) => {
           if (err) return next({ err });
           console.log(quiz);
-          const questionSet = [...quiz.questionSet, req.body.question._id];
+          const questionSet = [...quiz.questionSet, req.body.question];
           const totalScore = quiz.totalScore + 1;
           // console.log(questionSet, "inside controller")
           Quiz.findByIdAndUpdate(

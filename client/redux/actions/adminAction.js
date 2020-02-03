@@ -1,4 +1,4 @@
-const adminLogin = (adminData , cb) => dispatch => {
+const adminLogin = (adminData , cb , notAdmin) => dispatch => {
   dispatch({
     type: "ADMIN_LOGIN_START"
   });
@@ -11,12 +11,14 @@ const adminLogin = (adminData , cb) => dispatch => {
   })
     .then(res => res.json())
     .then(admin =>
-      dispatch({
+      (admin.error) ? 
+        notAdmin():
+      (dispatch({
         type: "ADMIN_LOGIN_SUCCESS",
         payload: admin
-      })
+      }),
+      cb())
     );
-    cb();
 };
 
 const adminLogout = (adminData) => dispatch => {

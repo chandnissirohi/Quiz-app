@@ -9,12 +9,7 @@ const quizSchema = new Schema(
       required: true,
       unique: true
     },
-    questionSet: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "questionSchema"
-      }
-    ],
+    questionSet: [],
     totalScore: {
       type: Number,
       default: 0,

@@ -1,14 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
 import AdminHeader from "./AdminHeader.js";
-import { creatingQuestion } from "../redux/actions/quizAction";
+import { creatingQuestion , fetchQuizData } from "../redux/actions/quizAction";
 import QuestionCard from "./QuestionCard.js";
 
 class CreateQuiz extends React.Component {
   constructor() {
     super();
     this.state = {
-      quiz: "",
       question: "",
       option1: "",
       option2: "",
@@ -21,12 +20,7 @@ class CreateQuiz extends React.Component {
   componentDidMount() {
     const { id } = this.props.match.params;
 
-    fetch(`/api/v1/admin/quiz/${id}`, {
-      method: "GET"
-      // headers: { "Content-Type": "application/json" }
-    })
-      .then(res => res.json())
-      .then(quiz => this.setState({ quiz: quiz.quiz }));
+    this.props.fetchQuizData(id);
   }
 
   handleChange = event => {
@@ -35,7 +29,7 @@ class CreateQuiz extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    const quizId = this.state.quiz._id;
+    const quizId = this.props.match.params;
     const question = this.state.question;
     const option1 = this.state.option1;
     const option2 = this.state.option2;
@@ -57,7 +51,7 @@ class CreateQuiz extends React.Component {
       answer
     };
 
-    this.props.creatingQuestion(quizData , () => this.componentDidMount(this.props));
+    this.props.creatingQuestion(quizData);
     this.setState({
       question: "",
       option1: "",
@@ -66,7 +60,7 @@ class CreateQuiz extends React.Component {
       option4: "",
       answer: ""
     });
-    ;
+    this.componentDidMount();
   };
 
   render() {
@@ -77,11 +71,12 @@ class CreateQuiz extends React.Component {
 
         <div className="field wrapper">
           <h1 className="login-header">
-            Add Quiz questions for {this.state.quiz.quizTitle}
+            Add Quiz questions for {this.props.quizReducer.singleQuizData && this.props.quizReducer.singleQuizData.quizTitle}
           </h1>
+          <div>{this.props.quizReducer.singleQuizData && this.props.quizReducer.singleQuizData.totalScore}</div>
           <center>
             <div className="control">
-              <label className="label">Question 1:</label>
+              <label className="label">Question:</label>
               <input
                 className="input"
                 type="text"
@@ -147,7 +142,13 @@ class CreateQuiz extends React.Component {
               </button>
             </div>
           </center>
-          <QuestionCard />
+          {(this.props.quizReducer.singleQuizData && 
+           (this.props.quizReducer.singleQuizData.questionSet.length > 0)) ? 
+            this.props.quizReducer.singleQuizData.questionSet.map((question , i) => {
+              return <QuestionCard key={i} question={question}/>
+            }): <></> 
+          }
+          
         </div>
       </>
     );
@@ -155,4 +156,4 @@ class CreateQuiz extends React.Component {
 }
 
 const mapStateToProps = store => store;
-export default connect(mapStateToProps, { creatingQuestion })(CreateQuiz);
+export default connect(mapStateToProps, { creatingQuestion , fetchQuizData})(CreateQuiz);
