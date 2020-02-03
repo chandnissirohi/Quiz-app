@@ -12,6 +12,11 @@ const fetchQuestionData = (id) => dispatch => {
     }))
 }
 
+const editQuestion = (id) => dispatch => {
+    dispatch({
+        
+    })
+}
 module.exports= {
     fetchQuestionData
 }

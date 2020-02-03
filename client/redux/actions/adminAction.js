@@ -21,24 +21,13 @@ const adminLogin = (adminData , cb , notAdmin) => dispatch => {
     );
 };
 
-const adminLogout = (adminData) => dispatch => {
+const adminLogout = () => dispatch => {
+  localStorage.clear();
   dispatch({
-    type: "ADMIN_LOGOUT_START"
-  });
-  fetch("/api/v1/admin/logout", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(adminData)
+    type: "ADMIN_LOGOUT"
   })
-    .then(res => res.json())
-    .then(loggedOutAdmin =>
-      dispatch({
-        type: "ADMIN_LOGOUT_SUCCESS",
-        payload: loggedOutAdmin
-      })
-    );
-};
-
+}
+  
 //TO DO : 
 // const deleteUser = () => dispatch => {
 

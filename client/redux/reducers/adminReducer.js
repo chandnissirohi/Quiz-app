@@ -2,8 +2,6 @@ const INITIAL_STATE = {
   isAdminLoggingIn: false,
   isAdminLoggedIn: false,
   adminData: null,
-  isAdminLoggingOut: false,
-  IsAdminLoggedOut: false,
   isLoadingQuizList: false,
   quizList: null,
   isCreatingQuiz: false,
@@ -31,17 +29,9 @@ function adminReducer(state = INITIAL_STATE, action) {
         isAdminLoggingIn: false,
         adminData: action.payload
       };
-    case "ADMIN_LOGOUT_START":
+    case "ADMIN_LOGOUT":
       return {
-        ...state,
-        isAdminLoggingOut: true
-      };
-    case "ADMIN_LOGOUT_SUCCESS":
-      return {
-        ...state,
-        isAdminLoggingOut: false,
-        isAdminLoggedOut: true,
-        adminData: {
+        ...state,        
           isAdminLoggingIn: false,
           isAdminLoggedIn: false,
           adminData: null,
@@ -58,7 +48,6 @@ function adminReducer(state = INITIAL_STATE, action) {
           isUpdatingQuiz: false,
           isLoadingUserList: false,
           userList: null
-        }
       };
     case "CREATE_QUIZ_START":
       return {

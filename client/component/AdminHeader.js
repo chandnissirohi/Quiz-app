@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import {adminLogout} from "../redux/actions/adminAction"
 
 class AdminHeader extends React.Component {
   render() {
@@ -47,7 +48,7 @@ class AdminHeader extends React.Component {
 
             <div className="navbar-end">
               <div className="navbar-item">
-                <div className="buttons"></div>
+                <button className="button">Logout</button>
               </div>
             </div>
           </div>
