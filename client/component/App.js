@@ -26,8 +26,7 @@ class App extends React.Component {
           
           
           <Route exact path="/user/login" component={UserLogin} />
-          <Route exact path="/user/quizattempt" component={QuizAttemptByUser} />
-          <Route exact path="/user/LeaderBoard" component={LeaderBoard} />
+          
           <Route path="/user/signup" component={UserSignup} />
           <Route component={UserSignup} />
 
