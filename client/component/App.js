@@ -19,17 +19,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <Switch>
-          <Route exact path="/admin/login" component={AdminLogin} />
-          <Route exact path="/user/login" component={UserLogin} />
-          {/* <Route exact path="/quiz" component={Quiz} /> */}
           
-          
-          
-          <Route exact path="/user/login" component={UserLogin} />
-          
-          <Route path="/user/signup" component={UserSignup} />
-          <Route component={UserSignup} />
-
         </Switch>
       </div>
     );
