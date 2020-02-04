@@ -1,4 +1,4 @@
-const adminLogin = (adminData , cb , notAdmin) => dispatch => {
+const adminLogin = (adminData, cb, notAdmin) => dispatch => {
   dispatch({
     type: "ADMIN_LOGIN_START"
   });
@@ -11,31 +11,32 @@ const adminLogin = (adminData , cb , notAdmin) => dispatch => {
   })
     .then(res => res.json())
     .then(admin => {
-      (admin.error)?
-        notAdmin() :
-      localStorage.setItem('token' , admin.token);
-      dispatch({
-        type: 'ADMIN_LOGIN_SUCCESS',
-        payload: admin
-      })
-    }
-      );
+      if (admin.error) {
+        notAdmin();
+      } else {
+        localStorage.setItem("token", admin.token);
+        dispatch({
+          type: "ADMIN_LOGIN_SUCCESS",
+          payload: admin
+        });
+        cb();
+      }
+    });
 };
 
 const adminLogout = () => dispatch => {
   localStorage.clear();
   dispatch({
     type: "ADMIN_LOGOUT"
-  })
-}
-  
-//TO DO : 
+  });
+};
+
+//TO DO :
 // const deleteUser = () => dispatch => {
 
 // }
 
-
-
 module.exports = {
-  adminLogin, adminLogout
+  adminLogin,
+  adminLogout
 };
