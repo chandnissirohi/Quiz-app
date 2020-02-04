@@ -1,8 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import {adminLogout} from "../redux/actions/adminAction"
+import {adminLogout} from "../redux/actions/adminAction";
+import {connect} from 'react-redux';
 
 class AdminHeader extends React.Component {
+
+  handleLogout = () => {
+    this.props.adminLogout();
+  }
+
   render() {
     return (
       <div>
@@ -48,7 +54,7 @@ class AdminHeader extends React.Component {
 
             <div className="navbar-end">
               <div className="navbar-item">
-                <button className="button">Logout</button>
+                <button onClick={this.handleLogout} className="button">Logout</button>
               </div>
             </div>
           </div>
@@ -58,4 +64,6 @@ class AdminHeader extends React.Component {
   }
 }
 
-export default AdminHeader;
+const mapStateToProps = store => store
+
+export default connect(mapStateToProps , {adminLogout}) (AdminHeader);

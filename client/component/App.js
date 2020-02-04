@@ -5,25 +5,35 @@ import {
   Switch,
   BrowserRouter as Router
 } from "react-router-dom";
-
 import "../stylesheet/main.css";
-// import Quiz from "./Quiz";
-import UserLogin from "./auth/UserLogin";
-import UserSignup from "./auth/UserSignup";
-import AdminLogin from "./auth/AdminLogin";
-import QuizAttemptByUser from "./QuizAttemptByUser.js";
-import LeaderBoard from "./LeaderBoard.js";
+import {connect} from "react-redux";
+import {verifyUser} from "../redux/actions/verifyUserAction";
+import ProtectedAdminRoutes from "./auth/ProtectedAdminRoutes";
+import { ProtectedUserRoutes } from "./auth/ProtectedUserRoutes";
+import { NonProtectedRoutes } from "./auth/NonProtectedRoutes";
 
 class App extends React.Component {
+  componentDidMount() {
+    if(localStorage.token)
+      this.props.verifyUser();
+  }
+  
   render() {
+    console.log(this.props , 'inside app')
     return (
-      <div className="App">
-        <Switch>
-          
-        </Switch>
-      </div>
+      <>
+     {
+       (this.props.adminReducer.isAdminLoggedIn) ?
+        (<ProtectedAdminRoutes />):
+        (this.props.userReducer.isUserLoggedIn) ?
+        (<ProtectedUserRoutes />):
+        (<NonProtectedRoutes />)
+     }
+     </>
     );
   }
 }
 
-export default App;
+const mapStateToProps = store => store;
+
+export default connect(mapStateToProps , {verifyUser})(App);

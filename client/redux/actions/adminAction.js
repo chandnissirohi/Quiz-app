@@ -10,15 +10,16 @@ const adminLogin = (adminData , cb , notAdmin) => dispatch => {
     body: JSON.stringify(adminData)
   })
     .then(res => res.json())
-    .then(admin =>
-      (admin.error) ? 
-        notAdmin():
-      (dispatch({
-        type: "ADMIN_LOGIN_SUCCESS",
+    .then(admin => {
+      (admin.error)?
+        notAdmin() :
+      localStorage.setItem('token' , admin.token);
+      dispatch({
+        type: 'ADMIN_LOGIN_SUCCESS',
         payload: admin
-      }),
-      cb())
-    );
+      })
+    }
+      );
 };
 
 const adminLogout = () => dispatch => {

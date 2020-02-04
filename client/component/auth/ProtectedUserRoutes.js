@@ -1,5 +1,5 @@
  import React from 'react';
-import { Switch } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import QuizAttemptByUser from '../QuizAttemptByUser';
 // import LeaderBoard from '../LeaderBoard';
 
