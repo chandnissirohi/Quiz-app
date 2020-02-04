@@ -1,4 +1,4 @@
-const userSignUp = (userData , cb) => dispatch => {
+const userSignUp = (userData, cb) => dispatch => {
   dispatch({
     type: "USER_CREATE_START"
   });
@@ -16,10 +16,10 @@ const userSignUp = (userData , cb) => dispatch => {
         payload: user.userData
       })
     );
-    cb();
+  cb();
 };
 
-const userLogIn = userData => dispatch => {
+const userLogIn = (userData, cb) => dispatch => {
   dispatch({
     type: "USER_LOGIN_START"
   });
@@ -29,12 +29,14 @@ const userLogIn = userData => dispatch => {
     body: JSON.stringify(userData)
   })
     .then(res => res.json())
-    .then(user =>
+    .then(user => {
       dispatch({
         type: "USER_LOGIN_SUCCESS",
         payload: user.userData
-      })
-    );
+      });
+      cb();
+    })
+    .catch(err => console.log(err));
 };
 
 const userLogOut = userData => dispatch => {
@@ -43,8 +45,6 @@ const userLogOut = userData => dispatch => {
   });
   localStorage.clear();
 };
-
-
 
 module.exports = {
   userLogIn,

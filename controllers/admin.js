@@ -5,7 +5,7 @@ const validator = require('validator');
 
 module.exports = {
   login: (req, res, next) => {
-    console.log(req.body)
+    // console.log(req.body)
     const email = req.body.email;
     const password = req.body.password;
     if(!email || !password) return res.status(403).json({error : 'Email and Password are must.'})

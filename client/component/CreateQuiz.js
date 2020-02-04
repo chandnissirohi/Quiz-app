@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import AdminHeader from "./AdminHeader.js";
-import { creatingQuestion , fetchQuizData } from "../redux/actions/quizAction";
+import { creatingQuestion, fetchQuizData } from "../redux/actions/quizAction";
 import QuestionCard from "./QuestionCard.js";
 
 class CreateQuiz extends React.Component {
@@ -37,10 +37,10 @@ class CreateQuiz extends React.Component {
     const option4 = this.state.option4;
     const answer = this.state.answer;
 
-    if(!option1 || !option2 || !option3 || !option4)
+    if (!option1 || !option2 || !option3 || !option4)
       return alert("Please enter all options");
 
-    if(!answer) return alert("Please enter the correct answer.");
+    if (!answer) return alert("Please enter the correct answer.");
     const quizData = {
       quizId,
       question,
@@ -64,16 +64,21 @@ class CreateQuiz extends React.Component {
   };
 
   render() {
-    console.log(this.props, "inside createquiz component");
+    // console.log(this.props, "inside createquiz component");
     return (
       <>
         <AdminHeader />
 
         <div className="field wrapper">
           <h1 className="login-header">
-            Add Quiz questions for {this.props.quizReducer.singleQuizData && this.props.quizReducer.singleQuizData.quizTitle}
+            Add Quiz questions for{" "}
+            {this.props.quizReducer.singleQuizData &&
+              this.props.quizReducer.singleQuizData.quizTitle}
           </h1>
-          <div>{this.props.quizReducer.singleQuizData && this.props.quizReducer.singleQuizData.totalScore}</div>
+          <div>
+            {this.props.quizReducer.singleQuizData &&
+              this.props.quizReducer.singleQuizData.totalScore}
+          </div>
           <center>
             <div className="control">
               <label className="label">Question:</label>
@@ -140,15 +145,20 @@ class CreateQuiz extends React.Component {
               <button onClick={this.handleSubmit} className="button is-black">
                 Next
               </button>
+              {/* TODO : Add submit button => redirects to AllQuizes */}
             </div>
           </center>
-          {(this.props.quizReducer.singleQuizData && 
-           (this.props.quizReducer.singleQuizData.questionSet.length > 0)) ? 
-            this.props.quizReducer.singleQuizData.questionSet.map((question , i) => {
-              return <QuestionCard key={i} question={question}/>
-            }): <></> 
-          }
-          
+          {this.props.quizReducer.singleQuizData &&
+          this.props.quizReducer.singleQuizData.questionSet &&
+          this.props.quizReducer.singleQuizData.questionSet.length > 0 ? (
+            this.props.quizReducer.singleQuizData.questionSet.map(
+              (question, i) => {
+                return <QuestionCard key={i} question={question} />;
+              }
+            )
+          ) : (
+            <></>
+          )}
         </div>
       </>
     );
@@ -156,4 +166,6 @@ class CreateQuiz extends React.Component {
 }
 
 const mapStateToProps = store => store;
-export default connect(mapStateToProps, { creatingQuestion , fetchQuizData})(CreateQuiz);
+export default connect(mapStateToProps, { creatingQuestion, fetchQuizData })(
+  CreateQuiz
+);

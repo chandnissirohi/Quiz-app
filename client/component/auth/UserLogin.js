@@ -19,9 +19,14 @@ class UserLogin extends React.Component {
     });
   };
 
+  cb = () => {
+    console.log("loggedin");
+    this.props.history.push("/allquizzes");
+  };
+
   handleSubmit = event => {
     event.preventDefault();
-    const {email , password} = this.state;
+    const { email, password } = this.state;
 
     if (!email || !password) {
       return alert("Email and Password are a must!");
@@ -37,7 +42,7 @@ class UserLogin extends React.Component {
 
     const userData = { email, password };
 
-    this.props.userLogIn(userData);
+    this.props.userLogIn(userData, this.cb);
   };
 
   render() {

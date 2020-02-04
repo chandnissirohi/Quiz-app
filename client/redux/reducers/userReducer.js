@@ -73,6 +73,21 @@ function userReducer(state = INITIAL_STATE, action) {
         isLoadingUserList: false,
         userList: action.payload
       };
+
+    case "USER_LOGOUT_START":
+      return {
+        ...state,
+        userData: null,
+        isLoadingUserList: false,
+        userList: null,
+        isUserLoggingIn: false,
+        isUserLoggedIn: false,
+        isCreatingUser: false,
+        isLoadingQuizSet: false,
+        quizData: null,
+        userScore: null,
+        isLoadingLeaderBoard: false
+      };
     default:
       return state;
   }

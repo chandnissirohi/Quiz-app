@@ -1,7 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+
+import { userLogOut } from "../redux/actions/userAction";
 
 class UserHeader extends React.Component {
+  handleLogout = () => {
+    this.props.userLogOut();
+  };
+
   render() {
     return (
       <div>
@@ -42,7 +49,9 @@ class UserHeader extends React.Component {
 
             <div className="navbar-end">
               <div className="navbar-item">
-                <div className="buttons"></div>
+                <button onClick={this.handleLogout} className="button">
+                  Logout
+                </button>
               </div>
             </div>
           </div>
@@ -52,4 +61,6 @@ class UserHeader extends React.Component {
   }
 }
 
-export default UserHeader;
+const mapStateToProps = store => store;
+
+export default connect(mapStateToProps, { userLogOut })(UserHeader);
