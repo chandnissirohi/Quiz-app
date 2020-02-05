@@ -7,8 +7,8 @@ import UserSignup from "./UserSignup";
 export const NonProtectedRoutes = () => {
   return (
     <Switch>
-      <Route exact path="/admin/login" component={AdminLogin} />
-      <Route exact path="/login" component={UserLogin} />
+      <Route path="/admin/login" component={AdminLogin} />
+      <Route path="/login" component={UserLogin} />
       <Route path="/signup" component={UserSignup} />
       <Route component={UserLogin} />
     </Switch>

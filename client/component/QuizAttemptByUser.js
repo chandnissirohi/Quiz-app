@@ -25,12 +25,6 @@ class QuizAttemptByUser extends React.Component {
     this.setState({
       activeIndex: this.state.activeIndex + 1
     });
-
-    // const { userAnswer, answers, score } = this.state;
-    // if the answe is correct
-    // if (userAnswer === answers) {
-    //   this.setState({ score: score + 1 });
-    // }
   };
 
   // finishHandler = () => {
@@ -65,15 +59,6 @@ class QuizAttemptByUser extends React.Component {
                 {questionSet && questionSet[this.state.activeIndex].question}
               </label>
               <div>
-                {/* {questionSet[this.state.activeIndex].map(option => 
-                          ( <p 
-                            key={option.id} 
-                            className={`ui floating message options ${userAnswer === option ? "selected" : null}`} 
-                            onClick={() => this.checkAnswer(option)} > 
-                            {option} 
-                            </p> 
-                            ))}  */}
-                {/* button */}
                 <button
                   className={`button button1 is-warning ${
                     answer && answer === "option1" ? "selected" : null
@@ -112,15 +97,9 @@ class QuizAttemptByUser extends React.Component {
                   </strong>
                 </button>
               </div>
-              {/* {this.activeIndex === questionSet && questionSet.length - 1 ? ( */}
-              <button
-                className="button"
-                // disabled={this.state.disabled}
-                onClick={this.nextQuestionHandler}
-              >
+              <button className="button" onClick={this.nextQuestionHandler}>
                 Next
               </button>
-              {/* ) : ()} */}
             </div>
             {this.activeIndex === questionSet &&
               questionSet.length -
