@@ -10,7 +10,7 @@ export const NonProtectedRoutes = () => {
       <Route exact path="/admin/login" component={AdminLogin} />
       <Route exact path="/login" component={UserLogin} />
       <Route path="/signup" component={UserSignup} />
-      <Route component={UserSignup} />
+      <Route component={UserLogin} />
     </Switch>
   );
 };

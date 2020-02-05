@@ -25,7 +25,6 @@ module.exports = {
   },
 
   login: (req, res, next) => {
-    console.log('inside controller');
     const { password, email } = req.body;
     if (!email || !password) {
       return res.status(401).json({ error: 'INVALID USER' });

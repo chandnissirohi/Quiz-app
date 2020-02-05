@@ -30,6 +30,8 @@ const userLogIn = (userData, cb) => dispatch => {
   })
     .then(res => res.json())
     .then(user => {
+      // console.log(user, "inside login")
+      localStorage.setItem("token", user.token);
       dispatch({
         type: "USER_LOGIN_SUCCESS",
         payload: user.userData
@@ -37,6 +39,24 @@ const userLogIn = (userData, cb) => dispatch => {
       cb();
     })
     .catch(err => console.log(err));
+};
+
+const userFetchQuizData = id => dispatch => {
+  console.log(id, "idd");
+  dispatch({
+    type: "FETCH_QUIZ_START"
+  });
+  fetch(`/api/v1/user/quiz/${id}`, {
+    method: "GET"
+  })
+    .then(res => res.json())
+    .then(quiz => {
+      console.log(quiz, "User Quiz data");
+      dispatch({
+        type: "FETCH_QUIZ_SUCCESS",
+        payload: quiz
+      });
+    });
 };
 
 const userLogOut = userData => dispatch => {
@@ -49,5 +69,6 @@ const userLogOut = userData => dispatch => {
 module.exports = {
   userLogIn,
   userLogOut,
-  userSignUp
+  userSignUp,
+  userFetchQuizData
 };
