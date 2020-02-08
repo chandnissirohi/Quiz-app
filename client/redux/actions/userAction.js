@@ -59,16 +59,16 @@ const userFetchQuizData = id => dispatch => {
     });
 };
 
-const userLogOut = userData => dispatch => {
+const userLogout = () => dispatch => {
   dispatch({
-    type: "USER_LOGOUT_START"
+    type: "USER_LOGOUT"
   });
   localStorage.clear();
 };
 
 module.exports = {
   userLogIn,
-  userLogOut,
+  userLogout,
   userSignUp,
   userFetchQuizData
 };

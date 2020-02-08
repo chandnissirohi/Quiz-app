@@ -2,6 +2,7 @@ const INITIAL_STATE = {
   isCreatingQuestion: false,
   isLoadingSingleQuestion: false,
   singleQuestionData: null,
+
 };
 
 function questionReducer(state = INITIAL_STATE, action) {
@@ -28,6 +29,7 @@ function questionReducer(state = INITIAL_STATE, action) {
         ...state,
         isCreatingQuestion: false
       };
+      
     default:
       return state;
   }

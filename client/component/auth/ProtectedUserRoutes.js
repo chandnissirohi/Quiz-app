@@ -9,6 +9,7 @@ export const ProtectedUserRoutes = () => {
     <Switch>
       <Route exact path="/quiz-attempt/:id" component={QuizAttemptByUser} />
       <Route path="/allquizzes" component={Allquizzes} />
+      <Route component={Allquizzes} />
 
       {/* <Route exact path="/quiz" component={Quiz} /> */}
       {/* <Route exact path="/user/LeaderBoard" component={LeaderBoard} /> */}

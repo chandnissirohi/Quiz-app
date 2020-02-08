@@ -50,7 +50,7 @@ class AdminLogin extends React.Component {
   };
 
   render() {
-    console.log(this.props, "inside adminLogin component")
+    // console.log(this.props, "inside adminLogin component")
     return (
       <>
         <AdminHeader />

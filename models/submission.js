@@ -8,7 +8,7 @@ const submissionSchema = new Schema(
       type: String,
       required: true
     },
-    quizScore: {
+    questionScore: {
       type: Number,
       required: true
     },

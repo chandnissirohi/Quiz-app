@@ -74,7 +74,7 @@ function userReducer(state = INITIAL_STATE, action) {
         userList: action.payload
       };
 
-    case "USER_LOGOUT_START":
+    case "USER_LOGOUT":
       return {
         ...state,
         userData: null,

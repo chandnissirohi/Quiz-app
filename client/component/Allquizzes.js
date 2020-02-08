@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import AdminHeader from "./AdminHeader.js";
-import { fetchingQuizList } from "../redux/actions/quizAction";
+import { fetchingQuizList, deletingQuiz } from "../redux/actions/quizAction";
 
 class Allquizzes extends React.Component {
   constructor(props) {
@@ -13,8 +13,11 @@ class Allquizzes extends React.Component {
     this.props.fetchingQuizList();
   }
 
+  deleteQuiz = (id) => {
+    this.props.deletingQuiz(id);
+  };
+
   render() {
-    console.log(this.props, "inside all quiz component");
     const isAdminLoggedIn = this.props.adminReducer.isAdminLoggedIn;
     return (
       <>
@@ -28,12 +31,17 @@ class Allquizzes extends React.Component {
               this.props.quizReducer.quizList.map((quiz, i) => (
                 <div key={i} className="quiz-selector control">
                   {isAdminLoggedIn === true ? (
-                    <Link
-                      className="button is-text"
-                      to={`/admin/quiz/new/${quiz._id}`}
-                    >
-                      {quiz.quizTitle}
-                    </Link>
+                    <>
+                      <Link
+                        className="button is-text"
+                        to={`/admin/quiz/new/${quiz._id}`}
+                      >
+                        {quiz.quizTitle}
+                      </Link>
+                      <button onClick={() => this.deleteQuiz(quiz._id)} className="button is-black is-delete">
+                        Delete
+                      </button>
+                    </>
                   ) : (
                     <Link
                       className="button is-text"
@@ -53,4 +61,6 @@ class Allquizzes extends React.Component {
 
 const mapStateToProps = store => store;
 
-export default connect(mapStateToProps, { fetchingQuizList })(Allquizzes);
+export default connect(mapStateToProps, { fetchingQuizList, deletingQuiz })(
+  Allquizzes
+);

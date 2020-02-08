@@ -52,6 +52,9 @@ class UserHeader extends React.Component {
                 <button onClick={this.handleLogout} className="button">
                   Logout
                 </button>
+                {/* <Link to={"/signup"} className="navbar-item">
+                  Signup
+                </Link> */}
               </div>
             </div>
           </div>

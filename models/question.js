@@ -27,12 +27,12 @@ const questionSchema = new Schema(
     },
     answer: {
       type: String,
-      required: true,
-      enum: ["option1", "option2", "option3", "option4"]
+      required: true
+      // enum: ["option1", "option2", "option3", "option4"]
     },
     quizId: {
       type: Schema.Types.ObjectId,
-      ref: "quizSchema"
+      ref: "Quiz"
     }
   },
   { timestamps: true }

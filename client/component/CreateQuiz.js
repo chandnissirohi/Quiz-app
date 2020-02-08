@@ -64,20 +64,22 @@ class CreateQuiz extends React.Component {
   };
 
   render() {
-    // console.log(this.props, "inside createquiz component");
+    console.log(this.props, "inside createquiz component");
     return (
       <>
         <AdminHeader />
 
         <div className="field wrapper">
           <h1 className="login-header">
-            Add Quiz questions for{" "}
+            Add Quiz questions for
             {this.props.quizReducer.singleQuizData &&
               this.props.quizReducer.singleQuizData.quizTitle}
           </h1>
           <div>
-            {this.props.quizReducer.singleQuizData &&
-              this.props.quizReducer.singleQuizData.totalScore}
+            <strong>
+              {this.props.quizReducer.singleQuizData &&
+                this.props.quizReducer.singleQuizData.totalScore}
+            </strong>
           </div>
           <center>
             <div className="control">

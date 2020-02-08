@@ -1,0 +1,10 @@
+when the admin directly goes on the create new quiz route >
+to add a new question> He should be able to see the last quiset title.
+
+ptions in the answer should not be accepted if it is not one of the options! should alert the admin!
+
+Change the header of user-signup!
+
+change the header of admin-signup!
+
+naming of everything has to be updated!

@@ -244,3 +244,32 @@ body {
 .block {
   display: inline-block;
 }
+
+.feild {
+  width: 500px;
+}
+
+.is-text {
+  margin-left: 2.1rem;
+}
+
+.is-edit {
+  margin: 0 auto;
+  text-decoration: none;
+}
+
+.hr {
+  border: 1px solid white;
+  width: 100%;
+}
+
+/* .selected {
+  background: blue;
+} */
+
+.is-delete {
+  margin-top: 1.2rem;
+  width: 60px;
+  height: 8px;
+
+}

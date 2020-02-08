@@ -27,6 +27,13 @@ class QuizAttemptByUser extends React.Component {
     });
   };
 
+  handlecorrectAnswer = (option, answer) => {
+    console.log(option, answer);
+    option == answer
+      ? this.setState({ score: ++this.state.score })
+      : this.setState({ score: --this.state.score });
+  };
+
   // finishHandler = () => {
   //   if (this.activeIndex === questionSet &&
   //     questionSet.length -
@@ -55,45 +62,63 @@ class QuizAttemptByUser extends React.Component {
               {singleQuizData && singleQuizData.quizTitle}
             </label>
             <div>
+              <p>{this.state.score}</p>
+            </div>
+            <div>
               <label className="label heading">
                 {questionSet && questionSet[this.state.activeIndex].question}
               </label>
               <div>
                 <button
-                  className={`button button1 is-warning ${
-                    answer && answer === "option1" ? "selected" : null
-                  }`}
-                  onClick={() => this.checkAnswer()}
-                >
-                  <strong>
-                    {questionSet && questionSet[this.state.activeIndex].option1}
-                  </strong>
-                </button>
-                <button
-                  className={`button button1 is-warning ${
-                    answer && answer === "option2" ? "selected" : null
-                  }`}
-                >
-                  <strong>
-                    {questionSet && questionSet[this.state.activeIndex].option2}
-                  </strong>
-                </button>
-                <button
-                  className={`button button1 is-warning ${
-                    answer && answer === "option3" ? "selected" : null
-                  }`}
+                  className="button button1 is-warning"
+                  onClick={() =>
+                    this.handlecorrectAnswer(
+                      "option3",
+                      questionSet && questionSet[this.state.activeIndex].answer
+                    )
+                  }
                 >
                   <strong>
                     {questionSet && questionSet[this.state.activeIndex].option3}
                   </strong>
                 </button>
                 <button
-                  className={`button button1 is-warning ${
-                    answer && answer === "option4" ? "selected" : null
-                  }`}
+                  className="button button1 is-warning"
+                  onClick={() =>
+                    this.handlecorrectAnswer(
+                      "option1",
+                      questionSet && questionSet[this.state.activeIndex].answer
+                    )
+                  }
+                >
+                  <strong>
+                    {questionSet && questionSet[this.state.activeIndex].option1}
+                  </strong>
+                </button>
+                <button
+                  className="button button1 is-warning"
+                  onClick={() =>
+                    this.handlecorrectAnswer(
+                      "option4",
+                      questionSet && questionSet[this.state.activeIndex].answer
+                    )
+                  }
                 >
                   <strong>
                     {questionSet && questionSet[this.state.activeIndex].option4}
+                  </strong>
+                </button>
+                <button
+                  className="button button1 is-warning"
+                  onClick={() =>
+                    this.handlecorrectAnswer(
+                      "option2",
+                      questionSet && questionSet[this.state.activeIndex].answer
+                    )
+                  }
+                >
+                  <strong>
+                    {questionSet && questionSet[this.state.activeIndex].option2}
                   </strong>
                 </button>
               </div>
@@ -102,8 +127,8 @@ class QuizAttemptByUser extends React.Component {
               </button>
             </div>
             {this.activeIndex === questionSet &&
-              questionSet.length -
-                1(
+              questionSet.length -1
+                (
                   <div className="control">
                     <button
                       className="button is-black"

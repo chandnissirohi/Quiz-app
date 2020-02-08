@@ -26,13 +26,14 @@ function quizReducer(state = INITIAL_STATE, action) {
     case "FETCH_QUIZ_START":
       return {
         ...state,
-        isLoadingQuiz: true
+        isLoadingQuiz: true,
+        questionList: null,
       };
     case "FETCH_QUIZ_SUCCESS":
       return {
         ...state,
         isLoadingQuiz: false,
-        singleQuizData: action.payload.quiz
+        singleQuizData: action.payload
       };
     case "UPDATE_QUIZ_START":
       return {
@@ -54,8 +55,17 @@ function quizReducer(state = INITIAL_STATE, action) {
       return {
         ...state,
         isLoadingQuizList: false,
-          quizList: action.payload
+        quizList: action.payload
       };
+    case "FETCH_QUESTION_LIST_START":
+      return {
+        isLoadingQuestionList: true
+      }
+    case "FETCH_QUESTION_LIST_SUCCESS":
+      return {
+        isLoadingQuestionList: false,
+        questionList: action.payload
+      }
     default:
       return state;
   }

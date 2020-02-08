@@ -1,5 +1,5 @@
 import React from "react";
-import UserHeader from "./UserHeader.js";
+
 
 class LeaderBoard extends React.Component {
   constructor() {
@@ -8,7 +8,6 @@ class LeaderBoard extends React.Component {
   render() {
     return (
       <>
-        <UserHeader />
         <div className="wrapper flex">
           <div>
             <label class="label heading board-label ">Users</label>

@@ -1,16 +1,27 @@
-const fetchQuizData = (id) => dispatch => {
+const fetchQuizData = id => dispatch => {
   dispatch({
     type: "FETCH_QUIZ_START"
-  })
+  });
   fetch(`/api/v1/admin/quiz/${id}`, {
     method: "GET"
   })
     .then(res => res.json())
-    .then(quiz => dispatch({
-      type: "FETCH_QUIZ_SUCCESS",
-      payload: quiz
-    }));
-}
+    .then(quiz => {
+      let questionList = [];
+      quiz.quiz.questionSet.forEach(questionId => {
+        fetch(`/api/v1/admin/question/${id}` , {
+          method: "GET"
+        })
+          .then(res => res.json())
+          .then(question => console.log(question))
+      });
+      console.log(quiz , "inside quiz controller");
+      dispatch({
+        type: "FETCH_QUIZ_SUCCESS",
+        payload: quiz.quiz
+      });
+    });
+};
 
 const fetchingQuizList = () => dispatch => {
   dispatch({
@@ -41,8 +52,8 @@ const createQuizTitileAndQuiz = ({ quizTitle }, cb) => dispatch => {
     body: JSON.stringify({ quizTitle })
   })
     .then(res => res.json())
-    .then(createdQuiz =>
-      console.log(createdQuiz)
+    .then(
+      createdQuiz => console.log(createdQuiz)
       // dispatch({
       //   type: "CREATE_QUIZ_SUCCESS",
       //   payload: createdquiz
@@ -69,16 +80,16 @@ const fetchingQuestionList = () => dispatch => {
     );
 };
 
-const creatingQuestion = (quizData ) => dispatch => {
+const creatingQuestion = quizData => dispatch => {
   const quizData1 = {
-   quizId : quizData.quizId.id,
-   answer: quizData.answer,
-   option1: quizData.option1,
-   option2: quizData.option2,
-   option3: quizData.option3,
-   option4: quizData.option4,
-   question: quizData.question
-  }
+    quizId: quizData.quizId.id,
+    answer: quizData.answer,
+    option1: quizData.option1,
+    option2: quizData.option2,
+    option3: quizData.option3,
+    option4: quizData.option4,
+    question: quizData.question
+  };
   dispatch({
     type: "CREATE_QUESTION_START"
   });
@@ -90,26 +101,24 @@ const creatingQuestion = (quizData ) => dispatch => {
     .then(res => res.json())
     .then(question => {
       dispatch({
-        type:"CREATE_QUESTION_SUCCESS"
+        type: "CREATE_QUESTION_SUCCESS"
       }),
-      fetch("/api/v1/admin/quiz/update", {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          quizId: quizData.quizId.id,
-          question: question.createdQuestion
-        })
-      })
-        .then(res => res.json())
-        .then(updatedQuiz =>
-          dispatch({
-            type: "CREATE_QUIZ_SUCCESS",
-            payload: updatedQuiz
+        fetch("/api/v1/admin/quiz/update", {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            quizId: quizData.quizId.id,
+            question: question.createdQuestion
           })
-        );
-    }
-    );
-   
+        })
+          .then(res => res.json())
+          .then(updatedQuiz =>
+            dispatch({
+              type: "CREATE_QUIZ_SUCCESS",
+              payload: updatedQuiz
+            })
+          );
+    });
 };
 
 const updatingQuiz = () => dispatch => {
@@ -130,11 +139,31 @@ const updatingQuiz = () => dispatch => {
     );
 };
 
-// const deletingQuiz = () => dispatch => {
-//     dispatch({
-//         type: ""
-//     })
-// }
+const deletingQuiz = id => dispatch => {
+  fetch(`/api/v1/admin/quiz/${id}`, {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json" }
+  })
+    .then(res => res.json())
+    .then(deletedQuiz => console.log(deletedQuiz, "quiz deleted"));
+
+  dispatch({
+    type: "FETCH_QUIZ_LIST_START"
+  });
+  fetch("/api/v1/admin/quiz/", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+    .then(res => res.json())
+    .then(quizList =>
+      dispatch({
+        type: "FETCH_QUIZ_LIST_SUCCESS",
+        payload: quizList.quizzes
+      })
+    );
+};
 
 module.exports = {
   fetchQuizData,
@@ -142,5 +171,6 @@ module.exports = {
   createQuizTitileAndQuiz,
   fetchingQuestionList,
   creatingQuestion,
-  updatingQuiz
+  updatingQuiz,
+  deletingQuiz
 };

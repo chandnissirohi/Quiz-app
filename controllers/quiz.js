@@ -29,7 +29,7 @@ module.exports = {
     Quiz.findById(quizId, (err, quiz) => {
       if (err) return next({ err });
       console.log(quiz);
-      const questionSet = [...quiz.questionSet, req.body.question];
+      const questionSet = [...quiz.questionSet, req.body.question._id];
       const totalScore = quiz.totalScore + 1;
       // console.log(questionSet, "inside controller")
       Quiz.findByIdAndUpdate(
