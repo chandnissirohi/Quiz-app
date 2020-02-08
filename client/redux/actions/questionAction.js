@@ -11,14 +11,7 @@ const fetchQuestionData = (id , cb) => dispatch => {
         type: "FETCH_QUESTION_SUCCESS",
         payload: question.question
       }),
-      fetch(`/api/v1/admin/quiz/${question.question.quizId}`, {
-        method: "GET"
-      })
-        .then(res => res.json())
-        .then(quiz => {
-          // console.log(quiz);
-          cb(question.question , quiz.quiz);
-        })
+      cb(question.question)
     });
 };
 
@@ -31,7 +24,6 @@ const editQuestion = (data, id, cb) => dispatch => {
       "Content-Type": "application/json"
     }
   });
-
   cb();
 };
 

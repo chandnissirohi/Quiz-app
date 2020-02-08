@@ -1,4 +1,5 @@
-const fetchQuizData = id => dispatch => {
+export const fetchQuizData = id => dispatch => {
+  console.log(id , "inside fetchQuizData");
   dispatch({
     type: "FETCH_QUIZ_START"
   });
@@ -6,24 +7,18 @@ const fetchQuizData = id => dispatch => {
     method: "GET"
   })
     .then(res => res.json())
-    .then(quiz => {
-      let questionList = [];
-      quiz.quiz.questionSet.forEach(questionId => {
-        fetch(`/api/v1/admin/question/${id}` , {
-          method: "GET"
-        })
-          .then(res => res.json())
-          .then(question => console.log(question))
-      });
-      console.log(quiz , "inside quiz controller");
+    .then(quiz =>{
+      console.log(quiz , "inside fetchQuizData");
       dispatch({
-        type: "FETCH_QUIZ_SUCCESS",
+        type: "CREATE_QUIZ_SUCCESS",
         payload: quiz.quiz
-      });
-    });
+      })
+    }
+
+    );
 };
 
-const fetchingQuizList = () => dispatch => {
+export const fetchingQuizList = () => dispatch => {
   dispatch({
     type: "FETCH_QUIZ_LIST_START"
   });
@@ -42,7 +37,7 @@ const fetchingQuizList = () => dispatch => {
     );
 };
 
-const createQuizTitileAndQuiz = ({ quizTitle }, cb) => dispatch => {
+export const createQuizTitileAndQuiz = ({ quizTitle }, cb) => dispatch => {
   dispatch({
     type: "CREATE_QUIZ_START"
   });
@@ -62,25 +57,46 @@ const createQuizTitileAndQuiz = ({ quizTitle }, cb) => dispatch => {
   cb();
 };
 
-const fetchingQuestionList = () => dispatch => {
+export const fetchingQuestionList = id => dispatch => {
   dispatch({
     type: "FETCH_QUESTION_LIST_START"
   });
-  fetch("/api/v1/admin/questionlist", {
-    method: "GET",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify()
+  let questionList = [];
+  fetch(`/api/v1/admin/quiz/${id}`, {
+    method: "GET"
   })
     .then(res => res.json())
-    .then(questionList =>
-      dispatch({
-        type: "FETCH_QUESTION_LIST_START",
-        payload: questionList.questions
-      })
-    );
+    .then(quiz => {
+      quiz.quiz.questionSet.forEach(questionId => {
+        fetch(`/api/v1/admin/question/${questionId}`, {
+          method: "GET"
+        })
+          .then(res => res.json())
+          .then(question => {
+            questionList = [...questionList, question.question];
+            dispatch({
+              type: "FETCH_QUESTION_LIST_SUCCESS",
+              payload: questionList
+            });
+          });
+      });
+    });
 };
 
-const creatingQuestion = quizData => dispatch => {
+// const questionSet = quiz.quiz.questionSet;
+//       let questionList=[];
+//       questionSet.forEach(questionId => {
+//         fetch(`/api/v1/admin/question/${id}`, {
+//           method: "GET"
+//         })
+//           .then(res => res.json())
+//           .then(question =>
+//             questionList = [...questionList , question.question]
+//             );
+//       });
+
+export const creatingQuestion = (quizData , cb , cb1) => dispatch => {
+  console.log(quizData, "inside creatingQuestion Action");
   const quizData1 = {
     quizId: quizData.quizId.id,
     answer: quizData.answer,
@@ -90,6 +106,8 @@ const creatingQuestion = quizData => dispatch => {
     option4: quizData.option4,
     question: quizData.question
   };
+  console.log(quizData1, "inside creatingQuestion Action");
+
   dispatch({
     type: "CREATE_QUESTION_START"
   });
@@ -116,12 +134,14 @@ const creatingQuestion = quizData => dispatch => {
             dispatch({
               type: "CREATE_QUIZ_SUCCESS",
               payload: updatedQuiz
-            })
+            }),
+            cb(),
+            cb1()
           );
     });
 };
 
-const updatingQuiz = () => dispatch => {
+export const updatingQuiz = () => dispatch => {
   dispatch({
     type: "UPDATE_QUIZ_START"
   });
@@ -134,12 +154,12 @@ const updatingQuiz = () => dispatch => {
     .then(updatedQuiz =>
       dispatch({
         type: "UPDATE_QUIZ_START_SUCCESS",
-        payload: updatedQuiz
+        payload: updatedQuiz.updatedQuiz
       })
     );
 };
 
-const deletingQuiz = id => dispatch => {
+export const deletingQuiz = id => dispatch => {
   fetch(`/api/v1/admin/quiz/${id}`, {
     method: "DELETE",
     headers: { "Content-Type": "application/json" }
@@ -163,14 +183,4 @@ const deletingQuiz = id => dispatch => {
         payload: quizList.quizzes
       })
     );
-};
-
-module.exports = {
-  fetchQuizData,
-  fetchingQuizList,
-  createQuizTitileAndQuiz,
-  fetchingQuestionList,
-  creatingQuestion,
-  updatingQuiz,
-  deletingQuiz
 };

@@ -1,29 +1,6 @@
 const Question = require("../models/question");
 
 module.exports = {
-  list: (req, res) => {
-    Question.find({}, (err, questions) => {
-      if (err) return res.json({ err });
-      res.json({ questions, success: true });
-    });
-  },
-  singleQuestion: (req, res) => {
-    console.log(req.body, "inside req body - single question");
-    // Question.findById({ _id: req.params.id})
-    //   .populate("quizId")
-    //   .exec(function(err, question) {
-    //     if (err) return console.log(err);
-    //     console.log(question.quizId.questionSet, "inside question controller");
-    //     res.json({ question, success: true });
-    //     // prints "The author is Ian Fleming"
-    //   });
-    Question.findById({ _id: req.params.id }, (err, question) => {
-      
-      if (err) return next({ err });
-
-      res.json({ question, success: true });
-    });
-  },
   create: (req, res) => {
     Question.create(req.body, (err, createdQuestion) => {
       if (err) return res.json({ err });
@@ -32,6 +9,21 @@ module.exports = {
         success: true,
         message: "Question Created Succesfully"
       });
+    });
+  },
+  list: (req, res) => {
+    Question.find({}, (err, questions) => {
+      if (err) return res.json({ err });
+      res.json({ questions, success: true });
+    });
+  },
+  singleQuestion: (req, res) => {
+   
+    Question.findById({ _id: req.params.id }, (err, question) => {
+      
+      if (err) return next({ err });
+      console.log(question , "inside controller")
+      res.json({ question, success: true });
     });
   },
   update: (req, res) => {

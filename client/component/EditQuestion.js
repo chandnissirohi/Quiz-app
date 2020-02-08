@@ -24,8 +24,11 @@ class EditQuestion extends React.Component {
     };
   }
 
-  settingState = (question , quiz) => {
-    console.log(quiz.questionSet.indexOf(question) , "inside setting state")
+  componentDidMount() {
+    const { id } = this.props.match.params;
+    this.props.fetchQuestionData(id, this.settingState);
+  }
+  settingState = (question) => {
     this.setState({
       question: question.question,
       option1: question.option1,
@@ -34,33 +37,12 @@ class EditQuestion extends React.Component {
       option4: question.option4,
       answer: question.answer,
       quizId: question.quizId,
-      quizData: quiz,
     });
   };
 
-  componentDidMount() {
-    const { id } = this.props.match.params;
-    this.props.fetchQuestionData(id, this.settingState);
-    // fetch(`/api/v1/admin/question/${id}`, {
-    //   method: "GET"
-    // })
-    //   .then(res => res.json())
-    //   .then(data => {
-    //     if (data.success) {
-    //       console.log("fecth success");
-    //       this.setState({
-    //         question: data.question.question,
-    //         option1: data.question.option1,
-    //         option2: data.question.option2,
-    //         option3: data.question.option3,
-    //         option4: data.question.option4,
-    //         answer: data.question.answer,
-    //         quizId: data.question.quizId
-    //       });
-    //     }
-    //   });
+  cb = () => {
+    this.props.history.push(`/admin/quiz/new/${this.state.quizId}`);
   }
-
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
@@ -68,32 +50,9 @@ class EditQuestion extends React.Component {
   handleUpdate = e => {
     e.preventDefault();
     const { id } = this.props.match.params;
-    const quizId = this.props.match.params.quizId;
 
-    this.props.editQuestion(this.state, id);
-    // fetch(`/api/v1/admin/question/update/${id}`, {
-    //   method: "PUT",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     Authorization: localStorage.quizAdminToken
-    //   },
-    //   body: JSON.stringify({
-    //     question: this.state.question,
-    //     option1: this.state.option1,
-    //     option2: this.state.option2,
-    //     option3: this.state.option3,
-    //     option4: this.state.option4,
-    //     answer: this.state.answer,
-    //     quizId: this.state.quizId
-    //   })
-    // })
-    //   .then(res => res.json())
-    //   .then(data => {
-    //     if (data.success) {
-    //       console.log("fecth success");
-    //       this.props.history.push(`/admin/quiz`);
-    //     }
-    //   });
+    this.props.editQuestion(this.state, id , this.cb);
+    
   };
 
   render() {

@@ -1,7 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
 import AdminHeader from "./AdminHeader.js";
-import { creatingQuestion, fetchQuizData } from "../redux/actions/quizAction";
+import {
+  creatingQuestion,
+  fetchQuizData,
+  fetchingQuestionList
+} from "../redux/actions/quizAction";
 import QuestionCard from "./QuestionCard.js";
 
 class CreateQuiz extends React.Component {
@@ -21,6 +25,7 @@ class CreateQuiz extends React.Component {
     const { id } = this.props.match.params;
 
     this.props.fetchQuizData(id);
+    this.props.fetchingQuestionList(id);
   }
 
   handleChange = event => {
@@ -51,7 +56,9 @@ class CreateQuiz extends React.Component {
       answer
     };
 
-    this.props.creatingQuestion(quizData);
+    this.props.creatingQuestion(quizData, this.props.fetchingQuestionList, () =>
+      this.componentDidMount(this.props)
+    );
     this.setState({
       question: "",
       option1: "",
@@ -60,7 +67,6 @@ class CreateQuiz extends React.Component {
       option4: "",
       answer: ""
     });
-    this.componentDidMount();
   };
 
   render() {
@@ -150,14 +156,11 @@ class CreateQuiz extends React.Component {
               {/* TODO : Add submit button => redirects to AllQuizes */}
             </div>
           </center>
-          {this.props.quizReducer.singleQuizData &&
-          this.props.quizReducer.singleQuizData.questionSet &&
-          this.props.quizReducer.singleQuizData.questionSet.length > 0 ? (
-            this.props.quizReducer.singleQuizData.questionSet.map(
-              (question, i) => {
-                return <QuestionCard key={i} question={question} />;
-              }
-            )
+          {this.props.quizReducer.questionList &&
+          this.props.quizReducer.questionList.length > 0 ? (
+            this.props.quizReducer.questionList.map((question, i) => {
+              return <QuestionCard key={i} question={question} />;
+            })
           ) : (
             <></>
           )}
@@ -168,6 +171,8 @@ class CreateQuiz extends React.Component {
 }
 
 const mapStateToProps = store => store;
-export default connect(mapStateToProps, { creatingQuestion, fetchQuizData })(
-  CreateQuiz
-);
+export default connect(mapStateToProps, {
+  creatingQuestion,
+  fetchQuizData,
+  fetchingQuestionList
+})(CreateQuiz);
