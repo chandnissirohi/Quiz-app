@@ -1,8 +1,28 @@
-const submitQuestion = data => dispatch => {
+const createSubmission = data => dispatch => {
+  let points = 0;
+  (data.answer == data.submittedAnswer) ? points = 1 : points = -1;
+  const submissionData = {
+    quizId: data.quizid,
+    pointsScored: points,
+    questionId: data.questionId,
+    submittedAnswer: data.submittedAnswer,
+    correctAnswer: data.answer,
+    userId: data.userId
+  }
+  fetch("/api/v1/user/submission/create", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(submissionData)
+  })
+    .then(res => res.json())
+    .then(submission => console.log(submission , "submission created"));
+};
+
+const fetchSingleSubmission = data => dispatch => {
   dispatch({
     type: "SUBMISSION_START"
   });
-  fetch(`/api/v1/user/question/submit/${id}`, {
+  fetch(`/api/v1/user/question/submission/${id}`, {
     method: "GET"
   })
     .then(res => res.json())
@@ -31,6 +51,7 @@ const createQuizSetSubmission = data => dispatch => {
 };
 
 module.exports = {
-  submitQuestion,
+  createSubmission,
+  fetchSingleSubmission,
   createQuizSetSubmission
 };

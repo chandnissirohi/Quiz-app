@@ -139,6 +139,21 @@ class CreateQuiz extends React.Component {
               />
             </div>
             <div className="control">
+              <label className="label">
+                Correct Answer:
+                <select
+                  name="answer"
+                  value={this.state.answer}
+                  onChange={this.handleChange}
+                >
+                  <option value="option1">{this.state.option1}</option>
+                  <option value="option2">{this.state.option2}</option>
+                  <option value="option3">{this.state.option3}</option>
+                  <option value="option4">{this.state.option4}</option>
+                </select>
+              </label>
+              </div>
+            {/* <div className="control">
               <label className="label">Correct Answer:</label>
               <input
                 className="input"
@@ -147,7 +162,7 @@ class CreateQuiz extends React.Component {
                 value={this.state.answer}
                 onChange={this.handleChange}
               />
-            </div>
+            </div> */}
 
             <div className="control">
               <button onClick={this.handleSubmit} className="button is-black">

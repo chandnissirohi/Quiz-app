@@ -1,6 +1,10 @@
 import React from "react";
 import UserHeader from "./UserHeader";
-import { userFetchQuizData } from "../redux/actions/userAction";
+import {
+  fetchQuizData,
+  fetchingQuestionList
+} from "../redux/actions/quizAction";
+import { createSubmission } from "../redux/actions/submissionAction";
 
 import { connect } from "react-redux";
 
@@ -8,23 +12,38 @@ class QuizAttemptByUser extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      score: 0,
       activeIndex: 0,
-      quizEnd: false,
-      disabled: true
+      submittedAnswer: null
     };
   }
 
   componentDidMount() {
     const { id } = this.props.match.params;
     // console.log(id , 'inside cdm')
-    this.props.userFetchQuizData(id);
+    this.props.fetchQuizData(id);
+    this.props.fetchingQuestionList(id);
   }
+  handleChange = answer => {
+    this.setState({ submittedAnswer: answer });
+  };
 
-  nextQuestionHandler = () => {
+  nextQuestionHandler = (quizid, answer, userId, questionId) => {
+    console.log(quizid);
     this.setState({
       activeIndex: this.state.activeIndex + 1
     });
+    const { submittedAnswer } = this.state;
+    this.props.createSubmission({
+      quizid,
+      answer,
+      userId,
+      questionId,
+      submittedAnswer
+    });
+  };
+
+  handleRoute = () => {
+    this.props.history.push("/leaderboard");
   };
 
   handlecorrectAnswer = (option, answer) => {
@@ -34,24 +53,13 @@ class QuizAttemptByUser extends React.Component {
       : this.setState({ score: --this.state.score });
   };
 
-  // finishHandler = () => {
-  //   if (this.activeIndex === questionSet &&
-  //     questionSet.length -
-  //       1) {
-  //     this.setState({
-  //       quizEnd: true
-  //     });
-  //   }
-  // };
-
   render() {
     const singleQuizData =
       this.props.quizReducer.singleQuizData &&
       this.props.quizReducer.singleQuizData;
-    const questionSet = singleQuizData && singleQuizData.questionSet;
+    const questionSet = this.props.quizReducer.questionList;
     const answer = questionSet && questionSet[this.state.activeIndex].answer;
-
-    console.log(answer, "inside QuizAttemptByUser");
+    const length = questionSet && questionSet.length - 1;
 
     return (
       <>
@@ -71,12 +79,7 @@ class QuizAttemptByUser extends React.Component {
               <div>
                 <button
                   className="button button1 is-warning"
-                  onClick={() =>
-                    this.handlecorrectAnswer(
-                      "option3",
-                      questionSet && questionSet[this.state.activeIndex].answer
-                    )
-                  }
+                  onClick={() => this.handleChange("option3")}
                 >
                   <strong>
                     {questionSet && questionSet[this.state.activeIndex].option3}
@@ -84,12 +87,7 @@ class QuizAttemptByUser extends React.Component {
                 </button>
                 <button
                   className="button button1 is-warning"
-                  onClick={() =>
-                    this.handlecorrectAnswer(
-                      "option1",
-                      questionSet && questionSet[this.state.activeIndex].answer
-                    )
-                  }
+                  onClick={() => this.handleChange("option1")}
                 >
                   <strong>
                     {questionSet && questionSet[this.state.activeIndex].option1}
@@ -97,12 +95,7 @@ class QuizAttemptByUser extends React.Component {
                 </button>
                 <button
                   className="button button1 is-warning"
-                  onClick={() =>
-                    this.handlecorrectAnswer(
-                      "option4",
-                      questionSet && questionSet[this.state.activeIndex].answer
-                    )
-                  }
+                  onClick={() => this.handleChange("option4")}
                 >
                   <strong>
                     {questionSet && questionSet[this.state.activeIndex].option4}
@@ -110,34 +103,33 @@ class QuizAttemptByUser extends React.Component {
                 </button>
                 <button
                   className="button button1 is-warning"
-                  onClick={() =>
-                    this.handlecorrectAnswer(
-                      "option2",
-                      questionSet && questionSet[this.state.activeIndex].answer
-                    )
-                  }
+                  onClick={() => this.handleChange("option2")}
                 >
                   <strong>
                     {questionSet && questionSet[this.state.activeIndex].option2}
                   </strong>
                 </button>
               </div>
-              <button className="button" onClick={this.nextQuestionHandler}>
-                Next
-              </button>
+              {this.state.activeIndex == length ? (
+                <button className="button is-black" onClick={this.handleRoute}>
+                  Submit
+                </button>
+              ) : (
+                <button
+                  className="button"
+                  onClick={() =>
+                    this.nextQuestionHandler(
+                      singleQuizData._id,
+                      answer,
+                      this.props.userReducer.userData._id,
+                      questionSet[this.state.activeIndex]._id
+                    )
+                  }
+                >
+                  Next
+                </button>
+              )}
             </div>
-            {this.activeIndex === questionSet &&
-              questionSet.length -1
-                (
-                  <div className="control">
-                    <button
-                      className="button is-black"
-                      onClick={this.finishHandler}
-                    >
-                      Submit
-                    </button>
-                  </div>
-                )}
           </center>
         </div>
       </>
@@ -148,5 +140,7 @@ class QuizAttemptByUser extends React.Component {
 const mapStateToProps = store => store;
 
 export default connect(mapStateToProps, {
-  userFetchQuizData
+  fetchQuizData,
+  fetchingQuestionList,
+  createSubmission
 })(QuizAttemptByUser);

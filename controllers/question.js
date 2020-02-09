@@ -22,7 +22,7 @@ module.exports = {
     Question.findById({ _id: req.params.id }, (err, question) => {
       
       if (err) return next({ err });
-      console.log(question , "inside controller")
+      // console.log(question , "inside controller")
       res.json({ question, success: true });
     });
   },

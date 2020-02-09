@@ -8,7 +8,7 @@ const submissionSchema = new Schema(
       type: String,
       required: true
     },
-    questionScore: {
+    pointsScored: {
       type: Number,
       required: true
     },
@@ -17,6 +17,10 @@ const submissionSchema = new Schema(
       required: true
     },
     submittedAnswer: {
+      type: String,
+      required: true
+    },
+    correctAnswer: {
       type: String,
       required: true
     },
