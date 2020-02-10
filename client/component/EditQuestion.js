@@ -7,8 +7,6 @@ import {
   fetchQuestionData
 } from "../redux/actions/questionAction";
 
-
-
 class EditQuestion extends React.Component {
   constructor(props) {
     super(props);
@@ -28,7 +26,7 @@ class EditQuestion extends React.Component {
     const { id } = this.props.match.params;
     this.props.fetchQuestionData(id, this.settingState);
   }
-  settingState = (question) => {
+  settingState = question => {
     this.setState({
       question: question.question,
       option1: question.option1,
@@ -36,13 +34,13 @@ class EditQuestion extends React.Component {
       option3: question.option3,
       option4: question.option4,
       answer: question.answer,
-      quizId: question.quizId,
+      quizId: question.quizId
     });
   };
 
   cb = () => {
     this.props.history.push(`/admin/quiz/new/${this.state.quizId}`);
-  }
+  };
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
@@ -51,8 +49,7 @@ class EditQuestion extends React.Component {
     e.preventDefault();
     const { id } = this.props.match.params;
 
-    this.props.editQuestion(this.state, id , this.cb);
-    
+    this.props.editQuestion(this.state, id, this.cb);
   };
 
   render() {
@@ -116,6 +113,7 @@ class EditQuestion extends React.Component {
               <label className="label">
                 Correct Answer:
                 <select
+                  className="select-option"
                   name="answer"
                   value={this.state.answer}
                   onChange={this.handleChange}
@@ -126,15 +124,13 @@ class EditQuestion extends React.Component {
                   <option value="option4">{this.state.option4}</option>
                 </select>
               </label>
-              {/* <input
-                className="input"
-                type="text"
-                name="answer"
-                value={this.state.answer}
-                
-              /> */}
             </div>
-            <input type="submit" onClick={this.handleUpdate} value="Submit" />
+            <input
+              type="submit"
+              className="submit"
+              onClick={this.handleUpdate}
+              value="Submit"
+            />
           </center>
         </div>
       </>

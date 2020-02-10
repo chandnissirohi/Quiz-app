@@ -5,7 +5,7 @@ var logger = require("morgan");
 var mongoose = require("mongoose");
 
 var indexRouter = require("./routes/index");
-var userRouter = require("./routes/api/user.js");
+var userRouter = require("./routes/api/user");
 var adminRouter = require("./routes/api/admin");
 var questionRouter = require("./routes/api/question");
 var quizRouter = require("./routes/api/quiz");

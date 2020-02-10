@@ -11,7 +11,7 @@ router.post("/login", userController.login);
 
 router.get("/:id", userController.singleUser);
 
-router.get("/list", userController.list);
+router.get("/", userController.list);
 
 // router.put('/update', userController.updateUser);
 

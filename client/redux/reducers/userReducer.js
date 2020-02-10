@@ -71,7 +71,8 @@ function userReducer(state = INITIAL_STATE, action) {
       return {
         ...state,
         isLoadingUserList: false,
-        userList: action.payload
+        userList: action.payload,
+       
       };
 
     case "USER_LOGOUT":

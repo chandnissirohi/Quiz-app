@@ -273,3 +273,19 @@ body {
   height: 8px;
 
 }
+
+.select-option {
+  width: 150px;
+  background-color: transparent;
+  height: 30px;
+  border: 2px solid black;
+}
+
+.submit{
+  width: 100px;
+  height: 30px;
+  margin-right: 1.5rem;
+  margin-top: 0.5rem;
+  background-color: transparent;
+  font-weight: bold;
+}

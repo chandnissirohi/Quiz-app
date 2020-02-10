@@ -82,7 +82,6 @@ class QuestionCard extends Component {
                     Edit
                   </Link>
                 </button>
-                <button className="button is-black ">Delete</button>
               </div>
             </div>
             <hr className="hr" />
