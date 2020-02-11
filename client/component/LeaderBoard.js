@@ -20,25 +20,29 @@ class LeaderBoard extends React.Component {
     return (
       <>
         <AdminHeader />
-        <div className="wrapper flex">
+        <div className="wrapper">
+          <div className="flex">
+            <label className="label heading board-label ">Users</label>
+            <label className="label heading board-label">Scores</label>
+          </div>
+
           {userList &&
             userList.map((userData, i) => {
               return (
-                <>
+                <div className="flex">
                   <div key={i}>
-                    <label className="label heading board-label ">Users</label>
                     <span className="button button1 user-scores is-warning">
                       <strong>{`${userData.username}`}</strong>
                     </span>
                   </div>
 
                   <div>
-                    <label className="label heading board-label">Scores</label>
                     <button className="button button1 user-scores is-warning">
                       <strong>{`${userData.score}`}</strong>
                     </button>
+                    <br></br>
                   </div>
-                </>
+                </div>
               );
             })}
         </div>
