@@ -1,7 +1,7 @@
 import React from "react";
 import validator from "validator";
 import { connect } from "react-redux";
-import UserHeader from "../UserHeader";
+import AdminHeader from "../AdminHeader"
 import { userSignUp } from "../../redux/actions/userAction";
 
 class UserSignup extends React.Component {
@@ -51,7 +51,7 @@ class UserSignup extends React.Component {
     console.log(this.props, "inside userSignUp component");
     return (
       <>
-        <UserHeader />
+        <AdminHeader />
 
         <div className="field wrapper">
           <h1 className="login-header">User Signup</h1>

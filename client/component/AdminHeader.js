@@ -44,12 +44,12 @@ class AdminHeader extends React.Component {
                   Create Quiz
                 </Link>
 
-                <Link to={"/"} className="navbar-item">
-                  Users
-                </Link>
-
                 <Link to={"/admin/quiz/allquizzes"} className="navbar-item">
                   All Quizzes
+                </Link>
+
+                <Link to={"/leaderboard"} className="navbar-item">
+                  LeaderBoard
                 </Link>
 
                 <div className="navbar-item has-dropdown is-hoverable"></div>
@@ -97,6 +97,10 @@ class AdminHeader extends React.Component {
 
                   <Link to={"/admin/quiz/allquizzes"} className="navbar-item">
                     All Quizzes
+                  </Link>
+
+                  <Link to={"/leaderboard"} className="navbar-item">
+                    LeaderBoard
                   </Link>
 
                   <div className="navbar-item has-dropdown is-hoverable"></div>

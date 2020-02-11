@@ -5,7 +5,6 @@ var logger = require("morgan");
 var mongoose = require("mongoose");
 require("dotenv").config();
 
-
 var indexRouter = require("./routes/index");
 var userRouter = require("./routes/api/user");
 var adminRouter = require("./routes/api/admin");
@@ -47,9 +46,8 @@ if (process.env.NODE_ENV === "development") {
 
 //connecting to mongoose
 mongoose.connect(
-  "mongodb://localhost/Quizapp",
-  // "process.env.mongoUri",
-  // "mongodb+srv://chandni:pYRScrKWKngk8Dvm@cluster0-mtglm.mongodb.net/test?retryWrites=true&w=majority",
+  // "mongodb://localhost/Quizapp",
+  process.env.mongoUri,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true
