@@ -78,7 +78,11 @@ class QuizAttemptByUser extends React.Component {
               </label>
               <div>
                 <button
-                  className="button button1 is-warning"
+                  className={
+                    this.state.submittedAnswer == "option3"
+                      ? "button button1 is-warning active"
+                      : "button button1 is-warning"
+                  }
                   onClick={() => this.handleChange("option3")}
                 >
                   <strong>
@@ -86,7 +90,12 @@ class QuizAttemptByUser extends React.Component {
                   </strong>
                 </button>
                 <button
-                  className="button button1 is-warning"
+                  id="result"
+                  className={
+                    this.state.submittedAnswer == "option1"
+                      ? "button button1 is-warning active"
+                      : "button button1 is-warning"
+                  }
                   onClick={() => this.handleChange("option1")}
                 >
                   <strong>
@@ -94,7 +103,12 @@ class QuizAttemptByUser extends React.Component {
                   </strong>
                 </button>
                 <button
-                  className="button button1 is-warning"
+                  id="result"
+                  className={
+                    this.state.submittedAnswer == "option4"
+                      ? "button button1 is-warning active"
+                      : "button button1 is-warning"
+                  }
                   onClick={() => this.handleChange("option4")}
                 >
                   <strong>
@@ -102,7 +116,12 @@ class QuizAttemptByUser extends React.Component {
                   </strong>
                 </button>
                 <button
-                  className="button button1 is-warning"
+                  id="result"
+                  className={
+                    this.state.submittedAnswer == "option2"
+                      ? "button button1 is-warning active"
+                      : "button button1 is-warning"
+                  }
                   onClick={() => this.handleChange("option2")}
                 >
                   <strong>

@@ -77,7 +77,7 @@ class CreateQuiz extends React.Component {
 
         <div className="field wrapper">
           <h1 className="login-header">
-            Add Quiz questions for
+            Add Quiz questions for :
             {this.props.quizReducer.singleQuizData &&
               this.props.quizReducer.singleQuizData.quizTitle}
           </h1>

@@ -289,3 +289,7 @@ body {
   background-color: transparent;
   font-weight: bold;
 }
+
+.active{
+  background: #fff !important;
+}
