@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "NODE_ENV=development nodemon ./bin/www",
-    "webpack": "webpack-dev-server --config ./webpack.config.js --mode development"
+    "webpack": "webpack-dev-server --config ./webpack.config.js --mode development",
+    "build": "webpack"
   },
   "dependencies": {
     "bcrypt": "^3.0.7",
