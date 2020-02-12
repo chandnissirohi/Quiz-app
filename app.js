@@ -3,7 +3,7 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var mongoose = require("mongoose");
-// require("dotenv").config();
+require("dotenv").config();
 
 var indexRouter = require("./routes/index");
 var userRouter = require("./routes/api/user");
@@ -46,15 +46,15 @@ if (process.env.NODE_ENV === "development") {
 
 //connecting to mongoose
 mongoose.connect(
-  "mongodb://localhost/Quizapp",
-  // process.env.mongoUri,
+  // "mongodb://localhost/Quizapp",
+  process.env.mongoUri,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true
   },
   function(err) {
     if (err) {
-      console.log(err, "Not Connect To DB");
+      console.log(err, "Not Connected To DB");
     } else {
       console.log("Connected Successfully To DB");
       require("./utils/seed");
