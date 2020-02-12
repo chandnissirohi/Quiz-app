@@ -57,7 +57,7 @@ mongoose.connect(
       console.log(err, "Not Connected To DB");
     } else {
       console.log("Connected Successfully To DB");
-      require("./utils/seed");
+      // require("./utils/seed");
     }
   }
 );
@@ -69,6 +69,9 @@ app.use("/api/v1/admin/quiz", quizRouter);
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/user/submission", submissionRouter);
 app.use("/api/v1/user/quizSetSubmission", quizSetSubmissionRouter);
-app.use("/", indexRouter);
+// app.use("/", indexRouter);
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "views", "index.html"));
+});
 
 module.exports = app;
