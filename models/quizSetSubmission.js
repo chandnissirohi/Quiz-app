@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const quizSetSubmissionSchema = new Schema(
   {
-    submission: [
+    submissions: [
       {
         type: Schema.Types.ObjectId,
         ref: "submissionSchema"
@@ -15,7 +15,17 @@ const quizSetSubmissionSchema = new Schema(
       required: true,
       default: 0
     },
+    userScore: {
+      type: Number,
+      required: true,
+      default: 0
+    },
+
     userId: {
+      type: String,
+      required: true
+    },
+    quizId: {
       type: String,
       required: true
     }

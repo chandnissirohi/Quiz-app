@@ -13,6 +13,8 @@ router.get("/:id", userController.singleUser);
 
 router.get("/", userController.list);
 
+router.put("/update" , userController.update);
+
 // router.put('/update', userController.updateUser);
 
 router.get("/quiz/:id", quizController.singleQuiz);

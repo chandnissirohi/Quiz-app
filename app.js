@@ -68,7 +68,7 @@ app.use("/api/v1/admin/question", questionRouter);
 app.use("/api/v1/admin/quiz", quizRouter);
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/user/submission", submissionRouter);
-app.use("/api/v1/user/quizset-submission", quizSetSubmissionRouter);
+app.use("/api/v1/user/quizSetSubmission", quizSetSubmissionRouter);
 app.use("/", indexRouter);
 
 module.exports = app;

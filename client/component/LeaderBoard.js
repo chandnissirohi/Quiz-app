@@ -29,8 +29,8 @@ class LeaderBoard extends React.Component {
           {userList &&
             userList.map((userData, i) => {
               return (
-                <div className="flex">
-                  <div key={i}>
+                <div className="flex" key={i}>
+                  <div >
                     <span className="button button1 user-scores is-warning">
                       <strong>{`${userData.username}`}</strong>
                     </span>
