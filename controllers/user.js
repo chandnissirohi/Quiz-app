@@ -75,6 +75,32 @@ module.exports = {
     });
   },
 
+  update: (req, res) => {
+    console.log(req.body);
+    User.findById(
+      req.body.quizSetSubmissionData.createdQuizSetSubmission.userId,
+      (err, user) => {
+        if (err) return res.json({ err });
+        let score =
+          req.body.quizSetSubmissionData.createdQuizSetSubmission.userScore +
+          user.score;
+        let quizSubmissions = [
+          ...user.quizSubmissions,
+          req.body.quizSetSubmissionData.createdQuizSetSubmission.quizId
+        ];
+        User.findByIdAndUpdate(
+          req.body.quizSetSubmissionData.createdQuizSetSubmission.userId,
+          { score, quizSubmissions },
+          { new: true },
+          (err, updatedUser) => {
+            if (err) return res.json({ err });
+            res.json({ updatedUser, success: true });
+          }
+        );
+      }
+    );
+  },
+
   // list: (req, res, next) => {
   //   req.body,
   //     (err, userList) => {
@@ -93,47 +119,3 @@ module.exports = {
     });
   }
 };
-
-// updateUserScore: (req, res, next) => {
-//   let { userid, quizid } = req.body;
-//   console.log(userid, contentid, 'in updatescore');
-//   let attemptedQuiz = [];
-//   let score =0;
-//   User.findById(userid)
-//     .then(student => {
-//       attemptedQuiz = [...user.attemptedQuiz, quizid];
-//     })
-//     .then(() =>
-//       User.findByIdAndUpdate(
-//         studentid,
-//         {
-//           attemptedQuiz,
-//           score,
-//         },
-//         (err, updatedUser) => {
-//           console.log(updatedUser, 'updatedUser with points');
-//           err ? res.json(err) : res.json(updatedUser);
-//         },
-//       ),
-//     );
-// },
-
-//   updateUser: (req, res, next) => {
-//     console.log(req.body, 'req.body');
-//     const id = req.body.id;
-//     console.log(id, 'id');
-//     User.findByIdAndUpdate(
-//       id,
-//       {
-//         email: req.body.email,
-//         username: req.body.username,
-//       },
-//       { new: true },
-//       (err, user) => {
-//         console.log(user, 'user inside ctlr');
-//         if (err) return next(err);
-//         return res.status(200).json({ user });
-//       },
-//     );
-//   },
-// };

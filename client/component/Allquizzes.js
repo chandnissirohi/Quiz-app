@@ -13,9 +13,13 @@ class Allquizzes extends React.Component {
     this.props.fetchingQuizList();
   }
 
-  deleteQuiz = (id) => {
+  deleteQuiz = id => {
     this.props.deletingQuiz(id);
   };
+
+  // handleQuizSetSubmission = id => {
+  //   this.props.createQuizSetSubmission(id);
+  // };
 
   render() {
     const isAdminLoggedIn = this.props.adminReducer.isAdminLoggedIn;
@@ -38,7 +42,10 @@ class Allquizzes extends React.Component {
                       >
                         {quiz.quizTitle}
                       </Link>
-                      <button onClick={() => this.deleteQuiz(quiz._id)} className="button is-black is-delete">
+                      <button
+                        onClick={() => this.deleteQuiz(quiz._id)}
+                        className="button is-black is-delete"
+                      >
                         Delete
                       </button>
                     </>
@@ -61,6 +68,7 @@ class Allquizzes extends React.Component {
 
 const mapStateToProps = store => store;
 
-export default connect(mapStateToProps, { fetchingQuizList, deletingQuiz })(
-  Allquizzes
-);
+export default connect(mapStateToProps, {
+  fetchingQuizList,
+  deletingQuiz
+})(Allquizzes);

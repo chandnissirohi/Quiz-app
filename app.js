@@ -30,19 +30,19 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", express.static(path.join(__dirname, "dist")));
 
 // Webpack config
-if (process.env.NODE_ENV === "development") {
-  const webpack = require("webpack");
-  const webpackConfig = require("./webpack.config");
-  const compiler = webpack(webpackConfig);
+// if (process.env.NODE_ENV === "development") {
+//   const webpack = require("webpack");
+//   const webpackConfig = require("./webpack.config");
+//   const compiler = webpack(webpackConfig);
 
-  app.use(
-    require("webpack-dev-middleware")(compiler, {
-      noInfo: true,
-      publicPath: webpackConfig.output.publicPath
-    })
-  );
-  app.use(require("webpack-hot-middleware")(compiler));
-}
+//   app.use(
+//     require("webpack-dev-middleware")(compiler, {
+//       noInfo: true,
+//       publicPath: webpackConfig.output.publicPath
+//     })
+//   );
+//   app.use(require("webpack-hot-middleware")(compiler));
+// }
 
 //connecting to mongoose
 mongoose.connect(
@@ -54,10 +54,10 @@ mongoose.connect(
   },
   function(err) {
     if (err) {
-      console.log(err, "Not Connect To DB");
+      console.log(err, "Not Connected To DB");
     } else {
       console.log("Connected Successfully To DB");
-      require("./utils/seed");
+      // require("./utils/seed");
     }
   }
 );
@@ -68,7 +68,10 @@ app.use("/api/v1/admin/question", questionRouter);
 app.use("/api/v1/admin/quiz", quizRouter);
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/user/submission", submissionRouter);
-app.use("/api/v1/user/quizset-submission", quizSetSubmissionRouter);
-app.use("/", indexRouter);
+app.use("/api/v1/user/quizSetSubmission", quizSetSubmissionRouter);
+// app.use("/", indexRouter);
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "views", "index.html"));
+});
 
 module.exports = app;

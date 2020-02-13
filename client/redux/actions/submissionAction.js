@@ -1,6 +1,6 @@
-const createSubmission = data => dispatch => {
+const createSubmission = (data, cb, cb2) => dispatch => {
   let points = 0;
-  (data.answer == data.submittedAnswer) ? points = 1 : points = -1;
+  data.answer == data.submittedAnswer ? (points = 1) : (points = -1);
   const submissionData = {
     quizId: data.quizid,
     pointsScored: points,
@@ -8,14 +8,18 @@ const createSubmission = data => dispatch => {
     submittedAnswer: data.submittedAnswer,
     correctAnswer: data.answer,
     userId: data.userId
-  }
+  };
   fetch("/api/v1/user/submission/create", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(submissionData)
   })
     .then(res => res.json())
-    .then(submission => console.log(submission , "submission created"));
+    .then(submission => {
+      cb2
+        ? (console.log(submission), cb(submission.createdSubmission), cb2())
+        : (console.log(submission), cb(submission.createdSubmission));
+    });
 };
 
 const fetchSingleSubmission = data => dispatch => {
@@ -35,19 +39,37 @@ const fetchSingleSubmission = data => dispatch => {
 };
 
 const createQuizSetSubmission = data => dispatch => {
+  const quizScore = data.submissions.length;
+  const quizSetSubmissionData = {
+    submissions: data.submissions,
+    quizTotalScore: quizScore,
+    userScore: data.userScore,
+    userId: data.userId,
+    quizId: data.quizid
+  };
   dispatch({
     type: "CREATING_QUIZSET_SUBMISSION_START"
   });
-  fetch(`/api/v1/user/all-quizzes/create`, {
-    method: "POST"
+  fetch(`/api/v1/user/quizSetSubmission/create`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(quizSetSubmissionData)
   })
     .then(res => res.json())
-    .then(createdQuizSetSubmission =>
+    .then(quizSetSubmissionData => {
+      console.log(quizSetSubmissionData, "inside Action");
       dispatch({
         type: "CREATING_QUIZSET_SUBMISSION_SUCCESS",
-        payload: createdQuizSetSubmission
+        payload: quizSetSubmissionData.createQuizSetSubmission
+      });
+      fetch("/api/v1/user/update", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ quizSetSubmissionData })
       })
-    );
+        .then(res => res.json())
+        .then(updatedUser => console.log(updatedUser));
+    });
 };
 
 module.exports = {

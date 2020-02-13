@@ -1,10 +1,14 @@
 import React from "react";
+import validator from "validator";
 import UserHeader from "./UserHeader";
 import {
   fetchQuizData,
   fetchingQuestionList
 } from "../redux/actions/quizAction";
-import { createSubmission } from "../redux/actions/submissionAction";
+import {
+  createSubmission,
+  createQuizSetSubmission
+} from "../redux/actions/submissionAction";
 
 import { connect } from "react-redux";
 
@@ -13,7 +17,9 @@ class QuizAttemptByUser extends React.Component {
     super(props);
     this.state = {
       activeIndex: 0,
-      submittedAnswer: null
+      submittedAnswer: null,
+      submissionList: [],
+      score: 0
     };
   }
 
@@ -27,30 +33,65 @@ class QuizAttemptByUser extends React.Component {
     this.setState({ submittedAnswer: answer });
   };
 
+  cb = submission => {
+    this.setState({
+      submittedAnswer: null,
+      submissionList: [...this.state.submissionList, submission._id],
+      score: this.state.score + submission.pointsScored
+    });
+  };
+
   nextQuestionHandler = (quizid, answer, userId, questionId) => {
     console.log(quizid);
-    this.setState({
-      activeIndex: this.state.activeIndex + 1
-    });
-    const { submittedAnswer } = this.state;
-    this.props.createSubmission({
-      quizid,
-      answer,
+    if (this.state.submittedAnswer == null) {
+      return alert("You must select one answer to move ahead in the game!");
+    } else {
+      this.setState({
+        activeIndex: this.state.activeIndex + 1
+      });
+      const { submittedAnswer } = this.state;
+      this.props.createSubmission(
+        {
+          quizid,
+          answer,
+          userId,
+          questionId,
+          submittedAnswer
+        },
+        this.cb
+      );
+    }
+  };
+
+  handleFinalSubmission = (quizid, answer, userId, questionId) => {
+    if (this.state.submittedAnswer == null) {
+      return alert("You must select one answer to move ahead in the game!");
+    } else {
+      const { submittedAnswer } = this.state;
+      this.props.createSubmission(
+        {
+          quizid,
+          answer,
+          userId,
+          questionId,
+          submittedAnswer
+        },
+        this.cb,
+        () => this.handleRoute(quizid, userId)
+      );
+    }
+  };
+
+  handleRoute = (quizid, userId) => {
+    const submissions = this.state.submissionList;
+    const userScore = this.state.score;
+    this.props.createQuizSetSubmission({
+      submissions,
+      userScore,
       userId,
-      questionId,
-      submittedAnswer
+      quizid
     });
-  };
-
-  handleRoute = () => {
     this.props.history.push("/leaderboard");
-  };
-
-  handlecorrectAnswer = (option, answer) => {
-    console.log(option, answer);
-    option == answer
-      ? this.setState({ score: ++this.state.score })
-      : this.setState({ score: --this.state.score });
   };
 
   render() {
@@ -130,7 +171,17 @@ class QuizAttemptByUser extends React.Component {
                 </button>
               </div>
               {this.state.activeIndex == length ? (
-                <button className="button is-black" onClick={this.handleRoute}>
+                <button
+                  className="button is-black"
+                  onClick={() =>
+                    this.handleFinalSubmission(
+                      singleQuizData._id,
+                      answer,
+                      this.props.userReducer.userData._id,
+                      questionSet[this.state.activeIndex]._id
+                    )
+                  }
+                >
                   Submit
                 </button>
               ) : (
@@ -161,5 +212,6 @@ const mapStateToProps = store => store;
 export default connect(mapStateToProps, {
   fetchQuizData,
   fetchingQuestionList,
-  createSubmission
+  createSubmission,
+  createQuizSetSubmission
 })(QuizAttemptByUser);
